@@ -1,0 +1,105 @@
+import asyncHandler from 'express-async-handler';
+import Course from '../models/courseModel.js';
+
+const getUserCourses = asyncHandler(async (req, res, next) => {
+    const courses = await Course.aggregate([
+        {
+            $match: {
+                userId: req.user._id
+            }
+        },
+        {
+            $project: {
+                _id: 1,
+                name: 1,
+                points: 1,
+                grade: 1,
+                assignments: 1,
+                year: 1,
+                semester: 1,
+            }
+        },
+        {
+            $group: {
+                _id: {
+                    year: "$year",
+                    semester: "$semester"
+                },
+                courses: {
+                    $push: {
+                        _id: "$_id",
+                        name: "$name",
+                        points: "$points",
+                        grade: "$grade",
+                        assignments: "$assignments",
+                        year: "$year",
+                        semester: "$semester",
+                    }
+                }
+            }
+        },
+        {
+            $sort: {
+                year: 1,
+                semester: 1
+            }
+        }
+    ]);
+    res.status(200).json({
+        success: true,
+        courses
+    });
+});
+
+const createCourse = asyncHandler(async (req, res, next) => {
+    const {name, points, grade, assignments, year, semester} = req.body;
+    const course = await Course.create({
+        name,
+        points,
+        grade,
+        assignments,
+        year,
+        semester,
+        userId: req.user._id
+    });
+    res.status(201).json({
+        success: true,
+        course
+    });
+});
+
+const updateCourse = asyncHandler(async (req, res, next) => {
+    const course = await Course.findById(req.params.id);
+    if (!course) {
+        res.status(404);
+        throw new Error('Course not found');
+    }
+    const {name, points, grade, assignments } = req.body;
+    course.name = name;
+    course.points = points;
+    course.grade = grade;
+    course.assignments = assignments;
+    const updatedCourse = await course.save();
+    res.status(200).json({
+        success: true,
+        updatedCourse
+    });
+});
+
+const deleteCourse = asyncHandler(async (req, res, next) => {
+    const course = await Course.findById(req.params.id);
+    if (!course) {
+        res.status(404);
+        throw new Error('Course not found');
+    }
+    await course.remove();
+    res.status(200).json({
+        success: true,
+        message: 'Course deleted'
+    });
+});
+
+
+
+
+export {getUserCourses, createCourse, deleteCourse, updateCourse};
