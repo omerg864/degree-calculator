@@ -15,11 +15,15 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
 import { Tooltip } from '@mui/material';
+import { useTranslation } from "react-i18next";
+import i18n from 'i18next';
 
 function Header({isAuthenticated, setIsAuthenticated}) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const cookies = new Cookies();
   const navigate = useNavigate();
+
+  const { t }= useTranslation('translation', { keyPrefix: 'Header' });
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -44,7 +48,13 @@ function Header({isAuthenticated, setIsAuthenticated}) {
     navigate('/');
   }
 
-  const pages = [{name: 'Home', func: gotoHome}];
+  const changeLanguage = () => {
+    i18n.changeLanguage(i18n.language === 'en' ? 'he' : 'en');
+  }
+
+  const pages = [{name: 'Home', func: gotoHome}, {name: "change Language", func: changeLanguage}];
+
+
 
   return (
     <AppBar position="static" sx={{backgroundColor: "#5C6F68"}}>
@@ -64,7 +74,7 @@ function Header({isAuthenticated, setIsAuthenticated}) {
               textDecoration: 'none',
             }}
           >
-            Calculator
+            {t("title")}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

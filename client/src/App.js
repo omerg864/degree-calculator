@@ -18,11 +18,12 @@ function App() {
   if (cookies.get('userToken') && !isAuthenticated) {
     setIsAuthenticated(true);
   }
+
   return (
     <>
     <ToastContainer theme="colored"/>
     <Router>
-    <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+    <Header direction="rtl" isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
       <Routes>
         <Route path="/" element={<Home isAuthenticated={isAuthenticated}/>} />
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated}/>} />
