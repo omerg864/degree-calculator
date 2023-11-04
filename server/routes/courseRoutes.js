@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.route('/').get(protectUser, getUserCourses);
 router.route('/').post(protectUser, createCourse);
-router.route('/').delete(protectUser, deleteCourse);
-router.route('/').put(protectUser, updateCourse);
+router.route('/:id').delete(protectUser, deleteCourse);
+router.route('/:id').put(protectUser, updateCourse);
 
 
 export default router;

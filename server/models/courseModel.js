@@ -40,6 +40,11 @@ const courseScheme = mongoose.Schema({
         type: Number,
         required: false
     },
+    binaryPass: {
+        type: Boolean,
+        required: false,
+        default: false
+    }
 }, { timestamps: true });
 
 export default mongoose.model('Course', courseScheme);

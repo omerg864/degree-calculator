@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import Cookies from 'universal-cookie';
 import Spinner from '../components/Spinner';
 import { calculateAverages, calculateSemesterAvg } from '../utils/generalFunctions';
-import { IconButton, Typography, Divider, Accordion, AccordionSummary, AccordionDetails, Button, TextField } from '@mui/material';
+import { IconButton, Typography, Divider, Accordion, AccordionSummary, AccordionDetails, Button, TextField, Fab } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import SemesterSlider from '../components/SemesterSlider.jsx';
@@ -13,6 +13,8 @@ import AssignmentForm from '../components/AssignmentForm';
 import CourseSummaryView from '../components/CourseSummaryView';
 import CourseSummaryForm from '../components/CourseSummaryForm';
 import YearSlider from '../components/YearSlider';
+import CallMissedOutgoingIcon from '@mui/icons-material/CallMissedOutgoing';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 function Home({ isAuthenticated}) {
@@ -36,6 +38,7 @@ function Home({ isAuthenticated}) {
         year: 1
     });
     const [newCourse, setNewCourse] = useState(false);
+    const [simulationSelect, setSimulationSelect] = useState(false);
     const cookies = new Cookies();
 
     useEffect(()=> {
@@ -69,19 +72,6 @@ function Home({ isAuthenticated}) {
 
     const minusSemester = () => {
         setSemester(semester - 1);
-    }
-
-    const saveCourse = (id) => {
-        setEdit(false);
-        setForm({
-            name: "",
-            grade: 0,
-            assignments: [],
-            points: 0,
-            _id: "",
-            semester: 1,
-            year: 1
-        });
     }
 
     const editCourse = (course) => {
@@ -156,15 +146,22 @@ function Home({ isAuthenticated}) {
                         }
                         return sem;
                     })
-                    setCourses(coursesTemp);
+                    let calculated = calculateAverages(coursesTemp);
+                    setCourses(calculated[0]);
+                    setDegreeAvg(calculated[1]);
+                    setYearAvgs(calculated[2]);
                 } else {
-                    setCourses(...courses, {
+                    let coursesTemp = [...courses, {
                         courses: [data.course],
                         _id: {
                             year,
                             semester
                         }
-                    });
+                    }];
+                    let calculated = calculateAverages(coursesTemp);
+                    setCourses(calculated[0]);
+                    setDegreeAvg(calculated[1]);
+                    setYearAvgs(calculated[2]);
                 }
                 setExpanded(false);
                 setNewCourse(false);
@@ -179,6 +176,85 @@ function Home({ isAuthenticated}) {
     const removeNewCourse = () => {
         setNewCourse(false);
         setExpanded(false);
+    }
+
+    const updateCourse = async (id) => {
+        setEdit(false);
+        setExpanded(false);
+        setIsLoading(true);
+        try {
+            const response = await fetch(`/api/course/${id}`, { headers: {
+                "Content-type": "application/json",
+                "authorization": `Bearer ${cookies.get('userToken')}`
+            } ,method: 'PUT', body: JSON.stringify(form) })
+            const data = await response.json();
+            if (!data.success) {
+                toast.error(data.message);
+            } else {
+                let coursesTemp = courses.map((sem) => {
+                    sem.courses = sem.courses.map((course) => {
+                        if(course._id === id) {
+                            course = data.course;
+                        }
+                        return course;
+                    });
+                    return sem;
+                });
+                let calculated = calculateAverages(coursesTemp);
+                setCourses(calculated[0]);
+                setDegreeAvg(calculated[1]);
+                setYearAvgs(calculated[2]);
+            }
+            setIsLoading(false);
+        } catch (err) {
+            toast.error('Internal Server Error')
+        }
+    }
+
+    const deleteCourse = async (id) => {
+        setEdit(false);
+        setExpanded(false);
+        setIsLoading(true);
+        try {
+            const response = await fetch(`/api/course/${id}`, { headers: {
+                "Content-type": "application/json",
+                "authorization": `Bearer ${cookies.get('userToken')}`
+            } ,method: 'DELETE'})
+            const data = await response.json();
+            if (!data.success) {
+                toast.error(data.message);
+            } else {
+                let coursesTemp = courses.map((sem) => {
+                    sem.courses = sem.courses.filter((course) => course._id !== id);
+                    return sem;
+                });
+                let calculated = calculateAverages(coursesTemp);
+                setCourses(calculated[0]);
+                setDegreeAvg(calculated[1]);
+                setYearAvgs(calculated[2]);
+            }
+            setIsLoading(false);
+        } catch (err) {
+            toast.error('Internal Server Error')
+        }
+    }
+
+    const selectSimulation = () => {
+        if(simulationSelect) {
+            setSimulationSelect(false);
+            return;
+        }
+        setSimulationSelect(true);
+        setEdit(false);
+        setNewCourse(false);
+    }
+
+    const toggleSelectCourse = (e) => {
+        e.stopPropagation();
+    }
+
+    const toggleCourseAssignment = (e) => {
+
     }
 
     const getCourses = async () => {
@@ -212,7 +288,7 @@ function Home({ isAuthenticated}) {
     }
     
     return (
-        <div>
+        <main>
             <div className='avgRow light-background'>
                 <Typography variant='h6'>
                     Degree Average: {degreeAvg}
@@ -229,12 +305,12 @@ function Home({ isAuthenticated}) {
                 <SemesterSlider semester={semester} plusSemester={plusSemester} minusSemester={minusSemester} avg={course._id.avg}/>
                 {course.courses.map((c) => {
                     return (
-                        <Accordion sx={{width: "100%"}} key={c._id} expanded={expanded === c._id} onChange={handleExpand(c._id)}>
+                        <Accordion sx={{width: "100%"}} key={c._id} expanded={expanded === c._id || expanded === "all"} onChange={handleExpand(c._id)}>
                             <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1bh-content"
                             >
-                            {edit !== c._id ? <CourseSummaryView course={c} /> : <CourseSummaryForm form={form} changeForm={changeForm}/>}
+                            {edit !== c._id ? <CourseSummaryView course={c} select={simulationSelect} toggleCourse={toggleSelectCourse} /> : <CourseSummaryForm form={form} changeForm={changeForm}/>}
                             </AccordionSummary>
                             <AccordionDetails sx={{paddingLeft: "0", paddingRight: "0"}}>
                             <Divider orientation='horizontal'/>
@@ -242,7 +318,7 @@ function Home({ isAuthenticated}) {
                                 {edit !== c._id ?
                                 c.assignments.map(ass => {
                                     return (
-                                        <AssignmentView assignment={ass} key={ass._id} />
+                                        <AssignmentView assignment={ass} key={ass._id} select={simulationSelect} toggleCourseAssignment={toggleCourseAssignment}  />
                                     )
                                 }) : form.assignments.map((ass, index) => {
                                     return (
@@ -253,11 +329,11 @@ function Home({ isAuthenticated}) {
                             {edit === c._id ? <IconButton onClick={newAssignment}>
                                                 <AddIcon sx={{color: "green"}}/>
                                             </IconButton> : <></>}
-                            {edit === c._id ? <div className='space' style={{padding: "1rem 1rem"}}>
-                                <Button variant="contained" color="error">
+                            {simulationSelect ? <></> : edit === c._id ? <div className='space' style={{padding: "1rem 1rem"}}>
+                                <Button variant="contained" color="error" onClick={() => deleteCourse(c._id)}>
                                     Delete
                                 </Button>
-                                <Button variant="contained" color="primary" id='btn-primary' onClick={() => saveCourse(c._id)}>
+                                <Button variant="contained" color="primary" id='btn-primary' onClick={() => updateCourse(c._id)}>
                                     Save
                                 </Button>
                             </div> : <div className='edit-container'>
@@ -306,7 +382,10 @@ function Home({ isAuthenticated}) {
                 New Course
             </Button>
             </div>
-        </div>
+            <Fab sx={{position: "absolute"}} className='sim-btn' color="primary" aria-label="simulation" onClick={selectSimulation}>
+                {simulationSelect ? <CloseIcon /> : <CallMissedOutgoingIcon />}
+            </Fab>
+        </main>
     );
 }
 

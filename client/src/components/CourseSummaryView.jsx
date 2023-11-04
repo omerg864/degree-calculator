@@ -1,12 +1,13 @@
-import { Box, Divider, Typography } from '@mui/material'
+import { Box, Checkbox, Divider, Typography } from '@mui/material'
 import React from 'react'
 import { CircularProgressbar } from 'react-circular-progressbar';
 import { calculateCourse } from '../utils/generalFunctions';
 
-function CourseSummaryView({course}) {
+function CourseSummaryView({course, select, toggleCourse}) {
   return (
     <Box className='space' sx={{width: "100%"}}>
-        <div className='row'>
+        <div className='row' style={{flex: 1, justifyContent: "flex-start", textAlign: "start"}}>
+        {select ? <Checkbox sx={{padding: 0}} onClick={toggleCourse} color="success" /> : null}
             <Typography>
                 {course.name}
             </Typography>

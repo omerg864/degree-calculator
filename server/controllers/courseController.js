@@ -82,7 +82,7 @@ const updateCourse = asyncHandler(async (req, res, next) => {
     const updatedCourse = await course.save();
     res.status(200).json({
         success: true,
-        updatedCourse
+        course: updatedCourse
     });
 });
 
@@ -92,7 +92,7 @@ const deleteCourse = asyncHandler(async (req, res, next) => {
         res.status(404);
         throw new Error('Course not found');
     }
-    await course.remove();
+    await Course.findByIdAndDelete(req.params.id);
     res.status(200).json({
         success: true,
         message: 'Course deleted'

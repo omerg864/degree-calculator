@@ -23,13 +23,11 @@ function App() {
     <ToastContainer theme="colored"/>
     <Router>
     <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
-    <div className='container'>
       <Routes>
         <Route path="/" element={<Home isAuthenticated={isAuthenticated}/>} />
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated}/>} />
         <Route path="/register" element={<Register/>} />
       </Routes>
-    </div>
     </Router>
     </>
   );
