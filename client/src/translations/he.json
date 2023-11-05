@@ -18,5 +18,27 @@
         "grade" : "ציון",
         "weight" : "משקל",
         "name" : "שם"
+    },
+    "Simulation": {
+        "year": "שנה",
+        "semester": "סמסטר",
+        "degreeAvg": "ממוצע תואר"
+    },
+    "Main": {
+        "degreeAvg":"ממוצע תואר"
+    },
+    "Home": {
+        "back": "חזרה",
+        "next": "הבא",
+        "summary": "סיכום",
+        "simulation": "סימולציה"
+    },
+    "PasswordRules" : {
+        "start": "סיסמה חייבת להיות:",
+        "english": "באנגלית",
+        "smallLetter": "אות קטנה אחת לפחות",
+        "capitalLetter": "אות גדולה אחת לפחות",
+        "number": "מספר אחד לפחות",
+        "length": "בין 8 ל24 אותיות"
     }
 }

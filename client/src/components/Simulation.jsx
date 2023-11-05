@@ -78,7 +78,7 @@ function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, 
     <div className='averages'>
         <div className='circleContainer'>
             <CircularProgressbarWithChildren value={degreeAvgTemp}>
-                <Typography >Degree Average</Typography>
+                <Typography >{t("degreeAvg")}</Typography>
                 <Typography>{degreeAvgTemp}</Typography>
                 <Typography className='circleAvgC' sx={{color: difference(degreeAvg, degreeAvgTemp).color}}>
                     {difference(degreeAvg, degreeAvgTemp).color !== 'black' ? difference(degreeAvg, degreeAvgTemp).diff : ""}
@@ -124,7 +124,8 @@ function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, 
             return (
                 <div key={index} className='circleContainer'>
                     <CircularProgressbarWithChildren value={semester._id.avg}>
-                        <Typography>{t("semester")} {index + 1}</Typography>
+                        <Typography>{t("year")} {semester._id.year}</Typography>
+                        <Typography>{t("semester")} {semester._id.semester}</Typography>
                         <Typography>{semester._id.avg}</Typography>
                         <Typography className='circleAvgC' sx={{color: difference(courses[index]._id.avg, semester._id.avg).color}}>
                             {difference(courses[index]._id.avg, semester._id.avg).color !== 'black' ? difference(courses[index]._id.avg, semester._id.avg).diff : ""}

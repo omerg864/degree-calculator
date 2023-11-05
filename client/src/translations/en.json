@@ -18,5 +18,27 @@
         "grade" : "Grade",
         "weight" : "Weight",
         "name" : "Name"
+    },
+    "Simulation": {
+        "year": "Year",
+        "semester": "Semester",
+        "degreeAvg": "Degree Average"
+    },
+    "Main": {
+        "degreeAvg": "Degree Average"
+    },
+    "Home": {
+        "back": "Back",
+        "next": "Next",
+        "summary": "Summary",
+        "simulation": "Simulation"
+    },
+    "PasswordRules" : {
+        "start": "Password must be:",
+        "english": "In English",
+        "smallLetter": "At least 1 small letter",
+        "capitalLetter": "At least 1 capital letter",
+        "number": "At least 1 number",
+        "length": "Between 8 and 24 characters"
     }
 }

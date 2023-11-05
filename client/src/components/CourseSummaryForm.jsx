@@ -27,6 +27,7 @@ function CourseSummaryForm({form, changeForm, simulation, disableGrade, index}) 
             label={t("credits")}
             name="points"
             type='number'
+            inputProps={{ min: 0.1 }}
             disabled={simulation}
             value={form.points}
             onChange={changeForm}
@@ -39,6 +40,7 @@ function CourseSummaryForm({form, changeForm, simulation, disableGrade, index}) 
             label={t("grade")}
             name="grade"
             type='number'
+            inputProps={{ min: 0, max: 100 }}
             onChange={(e) => changeForm(e, index)}
             onClick={(e) => {e.stopPropagation();}}
             disabled={disableGrade !== undefined ? disableGrade : form.assignments.length !== 0}

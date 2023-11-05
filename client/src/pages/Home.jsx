@@ -238,7 +238,7 @@ function Home({ isAuthenticated}) {
     return (
         <main>
             {tab === 'main' ? <Main courses={courses} year={year} semester={semester} simulationData={simulationData} setSimulationData={setSimulationData}
-            plusSemester={plusSemester} plusYear={plusYear} minusSemester={minusSemester} minusYear={minusYear} simulation={simulation}
+            plusSemester={plusSemester} plusYear={plusYear} minusSemester={minusSemester} minusYear={minusYear} simulation={simulation} setSimulation={setSimulation}
             yearAvgs={yearAvgs} degreeAvg={degreeAvg} deleteCourse={deleteCourse} updateCourse={updateCourse} createCourse={createCourse} /> : 
             tab === 'simulation' ? <Simulation courses={courses} simulationData={simulationData} setSimulationData={setSimulationData}
             yearAvgs={yearAvgs} degreeAvg={degreeAvg} setDegreeAvg={setDegreeAvg} setYearAvgs={setYearAvgs}/>

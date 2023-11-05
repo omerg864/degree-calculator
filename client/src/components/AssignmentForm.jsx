@@ -29,6 +29,7 @@ function AssignmentForm({assignment, changeAssignments, deleteAssignment, index,
                 sx={{width: "5rem"}}
                     label={t("weight")}
                     name='percent'
+                    inputProps={{ min: 0, max: 100 }}
                     value={assignment.percent}
                     size="small"
                     type='number'
@@ -41,6 +42,7 @@ function AssignmentForm({assignment, changeAssignments, deleteAssignment, index,
                     label={t("grade")}
                     value={assignment.grade ? assignment.grade : 0}
                     size="small"
+                    inputProps={{ min: 0, max: 100 }}
                     name='grade'
                     type='number'
                     onChange={(e) => changeAssignments(e, index, indexCourse)}

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { email_regex, password_regex} from '../utils/consts.js';
 import Spinner from '../components/Spinner';
+import PasswordRules from '../components/PasswordRules';
 
 function Register({ isAuthenticated}) {
     const [formData, setFormData] = useState({ email: '', password: '', confirmPassword: "", name: "", degree: "", school: "" });
@@ -66,6 +67,7 @@ function Register({ isAuthenticated}) {
             <TextField fullWidth id="degree" label="Degree" name='degree' required variant="outlined" onChange={handleChange} />
             <TextField fullWidth id="school" label="School" name='school' required variant="outlined" onChange={handleChange} />
             <PasswordInput id="password" label="Password" name="password" onChange={handleChange}/>
+            <PasswordRules />
             <PasswordInput id="confirmPassword" label="Confirm Password" name="confirmPassword" onChange={handleChange}/>
             <Button id='btn-primary' variant="contained" color="primary" type="submit" >Register</Button>
             </form>

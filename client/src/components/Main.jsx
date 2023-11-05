@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { arrayIncludes } from '../utils/generalFunctions';
+import { arrayIncludes, calculateCourse } from '../utils/generalFunctions';
 import { IconButton, Typography, Divider, Accordion, AccordionSummary, AccordionDetails, Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 
 
 function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSemester, minusSemester, minusYear, deleteCourse, updateCourse,
-    createCourse, simulation, simulationData, setSimulationData }) {
+    createCourse, simulation, simulationData, setSimulationData, setSimulation }) {
 
     const { t }= useTranslation('translation', { keyPrefix: 'Main' });
 
@@ -107,6 +107,7 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
             });
             setExpanded("new");
             setEdit(false);
+            setSimulation(false);
         }
     }
 
@@ -123,12 +124,13 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
     }
 
     const changeAssignments = (e, index) => {
-        setForm({...form, assignments: form.assignments.map((ass, index2) => {
+        let ass = form.assignments.map((ass, index2) => {
             if(index === index2) {
                 ass[e.target.name] = e.target.value;
             }
             return ass;
-        })});
+        })
+        setForm({...form, grade: calculateCourse(ass), assignments: ass});
     }
 
     const newAssignment = (e) => {
@@ -156,7 +158,7 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
     <>
     <div className='avgRow light-background'>
         <Typography variant='h6'>
-            Degree Average: {degreeAvg}
+            {t("degreeAvg")}: {degreeAvg}
         </Typography>
     </div>
     <YearSlider year={year} yearAvgs={yearAvgs} plusYear={plusYear} minusYear={minusYear}/>
