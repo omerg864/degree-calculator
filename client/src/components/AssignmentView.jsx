@@ -2,19 +2,19 @@ import { Box, Checkbox, Divider, Typography } from '@mui/material';
 import React from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 
-function AssignmentView({assignment, select, toggleCourseAssignment}) {
+function AssignmentView({assignment, select, toggleCourseAssignment, course, checked}) {
   return (
     <>
     <Box className='space' sx={{width: "100%", padding: "0.5rem 1rem", boxSizing: "border-box"}}>
         <div className='row'>
-        {select ? <Checkbox sx={{padding: 0}} onClick={toggleCourseAssignment} color="success" /> : null}
+        {select ? <Checkbox checked={checked} sx={{padding: 0}} onClick={(e) => toggleCourseAssignment(e, assignment._id, course)} color="success" /> : null}
             <Typography>
                 {assignment.name}
             </Typography>
         </div>
         <div className='row'>
             <Typography>
-                {assignment.percent}%
+                {assignment.percent} %
             </Typography>
             <Divider orientation='vertical' sx={{height: "70%"}}/>
             <Typography sx={{textAlign: "center", minWidth: "2rem"}}>

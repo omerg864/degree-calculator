@@ -1,5 +1,22 @@
 {
     "Header" : {
         "title": "מחשבון"
+    },
+    "YearSlider": {
+        "year": "שנה"
+    },
+    "SemesterSlider" : {
+        "semester" : "סמסטר",
+        "yearlyCourses" : "קורסים שנתיים"
+    },
+    "CourseSummary": {
+        "grade" : "ציון",
+        "credits" : "נק\"ז",
+        "name" : "שם הקורס"
+    },
+    "Assignment": {
+        "grade" : "ציון",
+        "weight" : "משקל",
+        "name" : "שם"
     }
 }

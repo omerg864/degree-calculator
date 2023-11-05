@@ -25,7 +25,7 @@ export const calculateCourse = (assignments) => {
 export const calculateSemesterAvg = (courses) => {
     let sumPoints = 0, total = 0;
     for(let i= 0; i < courses.length; i++) {
-        if(courses[i].assignments.length) {
+        if(courses[i].assignments.length && !courses[i].grade) {
             sumPoints += courses[i].points;
             total += courses[i].points * calculateCourse(courses[i].assignments);
         } else {
@@ -67,4 +67,27 @@ export const calculateAverages = (courses) => {
         degreePoints += yearsPoints[i];
     }
     return [courses, (degreeAvg / degreePoints).toFixed(2), yearsAvg];
+}
+
+
+export const arrayIncludes = (arr1, arr2) => {
+    for(let i = 0; i < arr1.length; i++) {
+        if(arr2.includes(arr1[i])) {
+            return true;
+        }
+    }
+    return false;
+}
+
+export const deepCopyCourses = (courses) => {
+    let coursesCopy = [];
+    for(let i = 0; i < courses.length; i++) {
+        let semester = {...courses[i]};
+        semester.courses = semester.courses.map(course => {
+            return {...course, assignments: [...course.assignments.map(assignment => { return {...assignment}})]};
+        });
+        semester._id = {...semester._id};
+        coursesCopy.push(semester);
+    }
+    return coursesCopy;
 }

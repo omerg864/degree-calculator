@@ -1,20 +1,23 @@
 import { IconButton, Typography } from '@mui/material'
 import React from 'react';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useTranslation } from "react-i18next";
+import ArrowIcon from './ArrowIcon.jsx';
 
 function YearSlider({year, yearAvgs, plusYear, minusYear}) {
+
+    const { t }= useTranslation('translation', { keyPrefix: 'YearSlider' });
+
   return (
     <div className='avgRow space'>
         <div style={{minWidth: "40px"}}>
             {year !== 1 ? <IconButton onClick={minusYear}>
-                <ArrowBackIosNewIcon/>
+                <ArrowIcon direction={"backward"}/>
             </IconButton> : <></>}
         </div>
-        <Typography>Year {year}: {yearAvgs[year - 1] ? yearAvgs[year - 1] : 0}</Typography>
+        <Typography>{t("year")} {year}: {yearAvgs[year - 1] ? yearAvgs[year - 1] : 0}</Typography>
         <div style={{minWidth: "40px"}}>
             <IconButton onClick={plusYear}>
-                <ArrowForwardIosIcon/>
+                <ArrowIcon direction={"forward"}/>
             </IconButton>
         </div>
     </div>

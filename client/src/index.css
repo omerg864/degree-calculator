@@ -141,3 +141,23 @@ main {
   right: 1rem;
   bottom: 1rem;
 }
+
+.averages {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+}
+
+.circleContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  max-width: 10rem;
+}
+
+.circleAvgC {
+  display: flex;
+  align-items: center;
+}

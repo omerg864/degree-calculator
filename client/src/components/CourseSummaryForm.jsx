@@ -2,14 +2,19 @@ import { Box, Divider, TextField } from '@mui/material';
 import React from 'react'
 import { calculateCourse } from '../utils/generalFunctions';
 import { CircularProgressbar } from 'react-circular-progressbar';
+import { useTranslation } from "react-i18next";
 
-function CourseSummaryForm({form, changeForm}) {
+function CourseSummaryForm({form, changeForm, simulation, disableGrade, index}) {
+  
+  const { t }= useTranslation('translation', { keyPrefix: 'CourseSummary' });
+
   return (
     <Box className='space' sx={{width: "100%"}}>
         <div className='row'>
             <TextField
-            label="Name"
+            label={t("name")}
             name="name"
+            disabled={simulation}
             value={form.name}
             size="small"
             onChange={changeForm}
@@ -19,9 +24,10 @@ function CourseSummaryForm({form, changeForm}) {
         <div className='row'>
             <TextField
             sx={{width: "5rem"}}
-            label="Points"
+            label={t("credits")}
             name="points"
             type='number'
+            disabled={simulation}
             value={form.points}
             onChange={changeForm}
             size="small"
@@ -30,12 +36,12 @@ function CourseSummaryForm({form, changeForm}) {
             <Divider orientation='vertical' sx={{height: "70%"}}/>
             <TextField
             sx={{width: "5rem"}}
-            label="Grade"
+            label={t("grade")}
             name="grade"
             type='number'
-            onChange={changeForm}
+            onChange={(e) => changeForm(e, index)}
             onClick={(e) => {e.stopPropagation();}}
-            disabled={form.assignments.length !== 0}
+            disabled={disableGrade !== undefined ? disableGrade : form.assignments.length !== 0}
             value={form.grade ? form.grade : calculateCourse(form.assignments)}
             size="small"
             />

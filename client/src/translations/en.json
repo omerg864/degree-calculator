@@ -1,5 +1,22 @@
 {
     "Header" : {
         "title" : "Calculator"
+    },
+    "YearSlider": {
+        "year": "Year"
+    },
+    "SemesterSlider" : {
+        "semester" : "Semester",
+        "yearlyCourses" : "Yearly Courses"
+    },
+    "CourseSummary": {
+        "grade" : "Grade",
+        "credits" : "Credits",
+        "name" : "Name"
+    },
+    "Assignment": {
+        "grade" : "Grade",
+        "weight" : "Weight",
+        "name" : "Name"
     }
 }
