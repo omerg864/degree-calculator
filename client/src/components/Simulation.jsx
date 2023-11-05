@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import CourseSummaryForm from './CourseSummaryForm';
 import AssignmentForm from './AssignmentForm';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { calculateAverages, deepCopyCourses } from '../utils/generalFunctions';
+import { calculateAverages, deepCopyCourses, difference } from '../utils/generalFunctions';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -55,22 +55,6 @@ function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, 
         setDegreeAvgTemp(calculated[1]);
         setYearAvgsTemp(calculated[2]);
         setCoursesTemp(calculated[0]);
-    }
-
-    const difference = (original, temp) => {
-        original = parseFloat(original);
-        temp = parseFloat(temp);
-        let color;
-        console.log(original > temp, original < temp, original === temp, original, temp);
-        if(original > temp) {
-            color = "red";
-        } else if(original < temp) {
-            color = "green";
-        } else {
-            color = "black";
-        }
-        let diff = Math.abs(original - temp).toFixed(2);
-        return {color, diff};
     }
 
   return (

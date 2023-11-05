@@ -1,7 +1,7 @@
 import React from 'react';
-import { FormControl, TextField, FormHelperText, Box, Button, Paper } from '@mui/material';
+import { TextField, Box, Button, Paper } from '@mui/material';
 import PasswordInput from '../components/PasswordInput';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { email_regex, password_regex} from '../utils/consts.js';

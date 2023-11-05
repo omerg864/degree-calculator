@@ -52,7 +52,7 @@ function Header({isAuthenticated, setIsAuthenticated}) {
     i18n.changeLanguage(i18n.language === 'en' ? 'he' : 'en');
   }
 
-  const pages = [{name: 'Home', func: gotoHome}, {name: "change Language", func: changeLanguage}];
+  const pages = [{name: "change Language", func: changeLanguage}];
 
 
 

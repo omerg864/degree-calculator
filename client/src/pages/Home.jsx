@@ -13,6 +13,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import Main from '../components/Main';
 import HomeIcon from '@mui/icons-material/Home';
 import Simulation from '../components/Simulation';
+import Summary from '../components/Summary';
 
 
 function Home({ isAuthenticated}) {
@@ -242,7 +243,7 @@ function Home({ isAuthenticated}) {
             yearAvgs={yearAvgs} degreeAvg={degreeAvg} deleteCourse={deleteCourse} updateCourse={updateCourse} createCourse={createCourse} /> : 
             tab === 'simulation' ? <Simulation courses={courses} simulationData={simulationData} setSimulationData={setSimulationData}
             yearAvgs={yearAvgs} degreeAvg={degreeAvg} setDegreeAvg={setDegreeAvg} setYearAvgs={setYearAvgs}/>
-            : <></>}
+            : <Summary courses={courses} yearsAvg={yearAvgs} degreeAvg={degreeAvg}/>}
             <SpeedDial
                 ariaLabel="navigation"
                 sx={{ position: 'absolute', bottom: 16, right: 16 }}

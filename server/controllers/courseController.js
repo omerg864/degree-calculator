@@ -41,7 +41,7 @@ const getUserCourses = asyncHandler(async (req, res, next) => {
         {
             $sort: {
                 year: 1,
-                semester: 1
+                semester: -1
             }
         }
     ]);

@@ -40,5 +40,17 @@
         "capitalLetter": "אות גדולה אחת לפחות",
         "number": "מספר אחד לפחות",
         "length": "בין 8 ל24 אותיות"
+    },
+    "Summary": {
+        "year": "שנה",
+        "semester": "סמסטר",
+        "degreeAvg": "ממוצע תואר",
+        "courseAvg": "ממוצע קורס",
+        "credits": "נק\"ז",
+        "courses": "קורסים",
+        "creditsForAvg": "נק\"ז לממוצע",
+        "completed": "קורסים שהושלמו",
+        "binaryPass": "קורסים בעובר בינארי/מנהלי",
+        "yearlyCourses": "קורסים שנתיים"
     }
 }

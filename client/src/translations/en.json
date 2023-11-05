@@ -40,5 +40,17 @@
         "capitalLetter": "At least 1 capital letter",
         "number": "At least 1 number",
         "length": "Between 8 and 24 characters"
+    },
+    "Summary": {
+        "year": "Year",
+        "semester": "Semester",
+        "degreeAvg": "Degree Average",
+        "courseAvg": "Course Average",
+        "credits": "Credits",
+        "courses": "Courses",
+        "creditsForAvg": "Credits For Average",
+        "completed": "Completed Courses",
+        "binaryPass": "Binary Pass Courses",
+        "yearlyCourses": "Yearly Courses"
     }
 }
