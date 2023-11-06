@@ -54,5 +54,9 @@
         "completed": "Completed Courses",
         "binaryPass": "Binary Pass Courses",
         "yearlyCourses": "Yearly Courses"
+    },
+    "Verify": {
+        "login": "your account has been verified successfully",
+        "Verify": "you will now be redirected to the login page"
     }
 }

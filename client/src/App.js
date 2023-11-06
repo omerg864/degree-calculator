@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Cookies from 'universal-cookie';
 import {useState} from 'react';
 import 'react-circular-progressbar/dist/styles.css';
+import Verify from './pages/Verify';
 
 function App() {
   const cookies = new Cookies();
@@ -29,6 +30,7 @@ function App() {
         <Route path="/" element={<Home isAuthenticated={isAuthenticated} setTitle={setTitle}/>} />
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated}/>} />
         <Route path="/register" element={<Register/>} />
+        <Route path="/verify/:id" element={<Verify/>} />
       </Routes>
     </Router>
     </>

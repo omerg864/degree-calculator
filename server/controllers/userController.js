@@ -25,6 +25,7 @@ const register = asyncHandler(async (req, res, next) => {
         degree,
         school
     });
+    sendEmail(user.email, 'Verify your email', `Please verify your email by clicking on the link: ${process.env.HOST_ADDRESS}/verify/${user._id}`);
     res.status(201).json({
         success: true
     });
@@ -37,6 +38,10 @@ const login = asyncHandler(async (req, res, next) => {
     if (!user) {
         res.status(400);
         throw new Error('Invalid email or password');
+    }
+    if(!user.isVerified) {
+        res.status(400);
+        throw new Error('Please verify your email');
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
@@ -57,5 +62,19 @@ const login = asyncHandler(async (req, res, next) => {
     });
 });
 
+const verify = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if(!user) {
+        res.status(400);
+        throw new Error('User not found');
+    }
+    user.isVerified = true;
+    await user.save();
+    res.status(200).json({
+        success: true
+    });
+});
 
-export {login, register};
+
+export {login, register, verify};
