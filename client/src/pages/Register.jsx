@@ -68,8 +68,8 @@ function Register({ isAuthenticated}) {
     <main>
         <h1>{t("register")}</h1>
         <Link to="/login">{t('already')}</Link>
-        <Box className='box-container' component={Paper} sx={{width: "60%"}}>
-            <form className='box-container' style={{textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '15px'}} onSubmit={handleSubmit}>
+        <Box className='box-container' component={Paper} sx={{xs: {width: "100%"}, md: {width: "60%"}}}>
+            <form style={{textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '15px'}} onSubmit={handleSubmit}>
             <TextField fullWidth id="name" value={formData.name} label={t('name')} name='name' required variant="outlined" onChange={handleChange} />
             <TextField fullWidth id="email"  value={formData.email} label={t('email')} name='email' type="email" required variant="outlined" onChange={handleChange} />
             <TextField fullWidth id="degree"  value={formData.degree} label={t('degree')} name='degree' required variant="outlined" onChange={handleChange} />

@@ -80,7 +80,7 @@ function Header({isAuthenticated, setIsAuthenticated, title, setTitle}) {
             {title ? title : t("title")}
           </Typography>
           <Typography
-            variant="h5"
+            variant="h6"
             noWrap
             component="a"
             href="/"

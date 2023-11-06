@@ -20,7 +20,7 @@ const PasswordInput = (props) => {
     <TextField  fullWidth className='text_input' id={props.id} label={props.label} name={props.name}
     type={showPassword ? "": "password"} required variant="outlined" value={props.value}
     InputProps={{ startAdornment: 
-      <InputAdornment position="start">
+      <InputAdornment position="end">
         <IconButton
           aria-label="toggle password visibility"
           onClick={handleClickShowPassword}

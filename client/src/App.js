@@ -12,6 +12,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import Verify from './pages/Verify.jsx';
 import Profile from './pages/Profile.jsx'
 import PasswordChange from './pages/PasswordChange';
+import i18next from 'i18next';
 
 function App() {
   const cookies = new Cookies();

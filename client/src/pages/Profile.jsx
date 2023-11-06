@@ -87,8 +87,8 @@ function Profile({ isAuthenticated}) {
   return (
     <main>
       <h1>{t("profile")}</h1>
-        <Box className='box-container' component={Paper} sx={{width: "60%"}}>
-            <form className='box-container' style={{textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '15px'}} onSubmit={handleSubmit}>
+        <Box className='box-container' component={Paper} >
+            <form style={{textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '15px'}} onSubmit={handleSubmit}>
               <TextField fullWidth id="name" value={user.name} label={t('name')} name='name' required variant="outlined" onChange={handleChange} />
               <TextField fullWidth id="email" value={user.email} label={t('email')} name='email' type="email" required variant="outlined" onChange={handleChange} />
               <TextField fullWidth id="degree" value={user.degree} label={t('degree')} name='degree' required variant="outlined" onChange={handleChange} />

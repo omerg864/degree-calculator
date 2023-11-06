@@ -30,6 +30,8 @@ code {
 
 .box-container {
   padding: 10px;
+  width: 60%;
+  box-sizing: border-box;
 }
 
 #root {
@@ -162,4 +164,10 @@ main {
 .circleAvgC {
   display: flex;
   align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+  .box-container {
+    width: 100%;
+  }
 }
