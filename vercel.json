@@ -3,7 +3,7 @@
     "builds": [
       {
         "src": "./server/server.js",
-        "use": "@vercel/node"
+        "use": "@now/node"
       },
       {
         "src": "./client/build",    
@@ -11,10 +11,10 @@
       }
     ],
   
-    "rewrites": [
+    "routes": [
       {
         "source": "/(.*)",
-        "destination": "./server/server.js"
+        "dest": "./server/server.js"
       }
     ]
   }
