@@ -178,7 +178,8 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1bh-content"
                     >
-                    {edit !== c._id ? <CourseSummaryView course={c} select={simulation} disabled={arrayIncludes(simulationData.ids, c.assignments.map(ass => ass._id))} checked={simulationData.ids.filter((id) => id === c._id).length !== 0} toggleCourse={toggleSelectCourse} /> : <CourseSummaryForm form={form} changeForm={changeForm}/>}
+                    {edit !== c._id ? <CourseSummaryView course={c} select={simulation} disabled={arrayIncludes(simulationData.ids, c.assignments.map(ass => ass._id)) || c.binaryPass} checked={simulationData.ids.filter((id) => id === c._id).length !== 0} toggleCourse={toggleSelectCourse} /> 
+                    : <CourseSummaryForm form={form} changeForm={changeForm}/>}
                     </AccordionSummary>
                     <AccordionDetails sx={{paddingLeft: "0", paddingRight: "0"}}>
                     <Divider orientation='horizontal'/>
@@ -186,7 +187,7 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
                         {edit !== c._id ?
                         c.assignments.map(ass => {
                             return (
-                                <AssignmentView key={ass._id} course={c} checked={simulationData.ids.filter((id) => id === ass._id).length !== 0} assignment={ass} select={simulation} toggleCourseAssignment={toggleCourseAssignment}  />
+                                <AssignmentView key={ass._id} course={c} disabled={c.binaryPass} checked={simulationData.ids.filter((id) => id === ass._id).length !== 0} assignment={ass} select={simulation} toggleCourseAssignment={toggleCourseAssignment}  />
                             )
                         }) : form.assignments.map((ass, index) => {
                             return (

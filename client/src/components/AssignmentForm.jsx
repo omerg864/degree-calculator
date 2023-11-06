@@ -1,8 +1,10 @@
-import { Box, Divider, IconButton, TextField } from '@mui/material'
+import { Box, Divider, IconButton, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useTranslation } from "react-i18next";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 function AssignmentForm({assignment, changeAssignments, deleteAssignment, index, simulation, indexCourse}) {
 
@@ -12,20 +14,20 @@ function AssignmentForm({assignment, changeAssignments, deleteAssignment, index,
     <>
         <Box className='space' sx={{width: "100%", padding: "0.5rem 1rem", boxSizing: "border-box"}}>
             <div className='row'>
-                <IconButton onClick={(e) => deleteAssignment(e, index)}>
+                {!simulation ? <IconButton onClick={(e) => deleteAssignment(e, index)}>
                     <DeleteForeverIcon sx={{color: "red"}} />
-                </IconButton>
-            <TextField
+                </IconButton> : null}
+            {!simulation ? <TextField
                 label={t("name")}
                 name='name'
                 value={assignment.name}
                 size="small"
                 disabled={simulation}
                 onChange={(e) => changeAssignments(e, index)}
-                />
+                /> : <Typography>{assignment.name}</Typography>}
             </div>
             <div className='row'>
-                <TextField
+            {!simulation ? <TextField
                 sx={{width: "5rem"}}
                     label={t("weight")}
                     name='percent'
@@ -35,8 +37,12 @@ function AssignmentForm({assignment, changeAssignments, deleteAssignment, index,
                     type='number'
                     disabled={simulation}
                     onChange={(e) => changeAssignments(e, index)}
-                />%
+                /> : <Typography>{assignment.percent} %</Typography>}
+                {!simulation ? '%' : null}
                 <Divider orientation='vertical' sx={{height: "70%"}}/>
+                {simulation ? <IconButton onClick={(e) => changeAssignments(e, index, indexCourse, "minus")}>
+                    <RemoveCircleOutlineIcon sx={{color: "red"}} />
+                </IconButton> : null}
                 <TextField
                 sx={{width: "5rem"}}
                     label={t("grade")}
@@ -47,6 +53,9 @@ function AssignmentForm({assignment, changeAssignments, deleteAssignment, index,
                     type='number'
                     onChange={(e) => changeAssignments(e, index, indexCourse)}
                 />
+                {simulation ? <IconButton onClick={(e) => changeAssignments(e, index, indexCourse, "plus")}>
+                    <AddCircleOutlineIcon sx={{color: "green"}} />
+                </IconButton> : null}
             <div style={{width: "1.5rem", height: "1.9rem"}}>
                 <CircularProgressbar value={assignment.grade ? assignment.grade : 0}/>
             </div>

@@ -112,7 +112,6 @@ export const difference = (original, temp) => {
     original = parseFloat(original);
     temp = parseFloat(temp);
     let color;
-    console.log(original > temp, original < temp, original === temp, original, temp);
     if(original > temp) {
         color = "red";
     } else if(original < temp) {

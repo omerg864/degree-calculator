@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import CourseSummaryForm from './CourseSummaryForm';
 import AssignmentForm from './AssignmentForm';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { calculateAverages, deepCopyCourses, difference } from '../utils/generalFunctions';
+import { calculateAverages, calculateCourse, deepCopyCourses, difference } from '../utils/generalFunctions';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -17,9 +17,24 @@ function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, 
     const [yearAvgsTemp, setYearAvgsTemp] = useState(yearAvgs);
     const [degreeAvgTemp, setDegreeAvgTemp] = useState(degreeAvg);
 
-    const changeAssignments = (e, index, indexCourse) => {
-        const { name, value } = e.target;
+    const changeAssignments = (e, index, indexCourse, grade) => {
+        let { name, value } = e.target;
         const temp = [...simulationData.courses];
+        if(grade) {
+            name = "grade";
+            value = temp[indexCourse].assignments[index][name];
+            if(grade === "plus") {
+                if(value === 100) {
+                    return;
+                }
+                value++;
+            } else {
+                if(value === 0) {
+                    return;
+                }
+                value--;
+            }
+        }
         temp[indexCourse].assignments[index][name] = value;
         setSimulationData({courses: temp, ...simulationData});
         let temp2 = coursesTemp.map((semester) => {
@@ -37,9 +52,24 @@ function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, 
         setCoursesTemp(calculated[0]);
     }
 
-    const changeForm = (e, index) => {
-        const { name, value } = e.target;
+    const changeForm = (e, index, grade) => {
+        let { name, value } = e.target;
         const temp = [...simulationData.courses];
+        if(grade) {
+            name = "grade";
+            value = temp[index][name] ? temp[index][name] : calculateCourse(temp[index].assignments);
+            if(grade === "plus") {
+                if(value === 100) {
+                    return;
+                }
+                value++;
+            } else {
+                if(value === 0) {
+                    return;
+                }
+                value--;
+            }
+        }
         temp[index][name] = value;
         setSimulationData({courses: temp, ...simulationData});
         let temp2 = coursesTemp.map((semester) => {

@@ -1,8 +1,10 @@
-import { Box, Divider, TextField } from '@mui/material';
+import { Box, Divider, IconButton, TextField, Typography } from '@mui/material';
 import React from 'react'
 import { calculateCourse } from '../utils/generalFunctions';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import { useTranslation } from "react-i18next";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 function CourseSummaryForm({form, changeForm, simulation, disableGrade, index}) {
   
@@ -11,18 +13,17 @@ function CourseSummaryForm({form, changeForm, simulation, disableGrade, index}) 
   return (
     <Box className='space' sx={{width: "100%"}}>
         <div className='row'>
-            <TextField
+            {!simulation ? <TextField
             label={t("name")}
             name="name"
-            disabled={simulation}
             value={form.name}
             size="small"
             onChange={changeForm}
             onClick={(e) => {e.stopPropagation();}}
-            />
+            /> : <Typography>{form.name}</Typography>}
         </div>
         <div className='row'>
-            <TextField
+        {!simulation ? <TextField
             sx={{width: "5rem"}}
             label={t("credits")}
             name="points"
@@ -33,8 +34,13 @@ function CourseSummaryForm({form, changeForm, simulation, disableGrade, index}) 
             onChange={changeForm}
             size="small"
             onClick={(e) => {e.stopPropagation();}}
-            />
+            /> : <Typography>{form.points} {t('credits')}</Typography>}
             <Divider orientation='vertical' sx={{height: "70%"}}/>
+            {disableGrade !== undefined ? !disableGrade  && simulation ? <IconButton onClick={(e) => changeForm(e, index, "minus")}>
+                <RemoveCircleOutlineIcon sx={{color: "red"}} />
+            </IconButton> : null : !form.assignments.length !== 0  && simulation ? <IconButton onClick={(e) => changeForm(e, index,"minus")}>
+                <RemoveCircleOutlineIcon sx={{color: "red"}} />
+            </IconButton> : null}
             <TextField
             sx={{width: "5rem"}}
             label={t("grade")}
@@ -47,6 +53,11 @@ function CourseSummaryForm({form, changeForm, simulation, disableGrade, index}) 
             value={form.grade ? form.grade : calculateCourse(form.assignments)}
             size="small"
             />
+            {disableGrade !== undefined ? !disableGrade && simulation ?<IconButton onClick={(e) => changeForm(e, index,"plus")}>
+                <AddCircleOutlineIcon sx={{color: "green"}} />
+            </IconButton> : null : !form.assignments.length !== 0  && simulation ?<IconButton onClick={(e) => changeForm(e, index,"plus")}>
+                <AddCircleOutlineIcon sx={{color: "green"}} />
+            </IconButton> : null}
         <div style={{width: "1.5rem", height: "1.9rem"}}>
             <CircularProgressbar value={form.grade ? form.grade : calculateCourse(form.assignments)}/>
         </div>
