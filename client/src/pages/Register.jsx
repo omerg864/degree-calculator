@@ -39,6 +39,9 @@ function Register({ isAuthenticated}) {
               toast.error(data.message);
           } else {
               toast.success(t('registerSuccess'));
+              if(data.specialMessage) {
+                toast.info(data.specialMessage);
+              }
               navigate('/login');
           }
           setIsLoading(false);

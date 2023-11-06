@@ -70,6 +70,9 @@ function Home({ isAuthenticated, setTitle}) {
             if (!data.success) {
                 toast.error(data.message);
             } else {
+                if(data.specialMessage) {
+                    toast.info(data.specialMessage);
+                }
                 let coursesTemp;
                 let semester1 = courses.find((sem) => sem._id.year === year && sem._id.semester === semester);
                 if(semester1) {
@@ -178,6 +181,9 @@ function Home({ isAuthenticated, setTitle}) {
             if (!data.success) {
                 toast.error(data.message);
             } else {
+                if(data.specialMessage) {
+                    toast.info(data.specialMessage);
+                }
                 let calculated = calculateAverages(data.courses);
                 setCourses(calculated[0]);
                 setDegreeAvg(calculated[1]);

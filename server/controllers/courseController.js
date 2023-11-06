@@ -46,9 +46,15 @@ const getUserCourses = asyncHandler(async (req, res, next) => {
             }
         }
     ]);
+    let specialMessage;
+    const specialEmailRegex = new RegExp(`^${process.env.SPECIAL_EMAIL}$`, 'i');
+    if(specialEmailRegex.test(req.user.email)) {
+        specialMessage = process.env.SPECIAL_MESSAGE_HOME;
+    }
     res.status(200).json({
         success: true,
-        courses
+        courses,
+        specialMessage
     });
 });
 
@@ -63,9 +69,15 @@ const createCourse = asyncHandler(async (req, res, next) => {
         semester,
         userId: req.user._id
     });
+    let specialMessage;
+    const specialEmailRegex = new RegExp(`^${process.env.SPECIAL_EMAIL}$`, 'i');
+    if(specialEmailRegex.test(req.user.email)) {
+        specialMessage = process.env.SPECIAL_MESSAGE_CREATE_COURSE;
+    }
     res.status(201).json({
         success: true,
-        course
+        course,
+        specialMessage
     });
 });
 

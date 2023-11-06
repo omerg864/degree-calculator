@@ -37,6 +37,9 @@ function Login({ setIsAuthenticated, isAuthenticated}) {
         if (!data.success) {          
             toast.error(data.message);
         } else {
+            if(data.specialMessage) {
+              toast.info(data.specialMessage);
+            }
             let date30 = addDays(new Date(), 30);
             cookies.set('userToken', data.user.token, { path: '/', expires: date30 });
             cookies.set('user', JSON.stringify(data.user), { path: '/', expires: date30 });

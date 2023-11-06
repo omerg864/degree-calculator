@@ -26,8 +26,14 @@ const register = asyncHandler(async (req, res, next) => {
         school
     });
     sendEmail(user.email, 'Verify your email', `Please verify your email by clicking on the link: ${process.env.HOST_ADDRESS}/verify/${user._id}`);
+    let specialMessage;
+    const specialEmailRegex = new RegExp(`^${process.env.SPECIAL_EMAIL}$`, 'i');
+    if(specialEmailRegex.test(user.email)) {
+        specialMessage = process.env.SPECIAL_MESSAGE_REGISTER;
+    }
     res.status(201).json({
-        success: true
+        success: true,
+        specialMessage
     });
 });
 
@@ -52,9 +58,15 @@ const login = asyncHandler(async (req, res, next) => {
     delete user._doc["password"]
     delete user._doc["createdAt"]
     delete user._doc["updatedAt"]
-    delete user._doc["__v"]
+    delete user._doc["__v"];
+    let specialMessage;
+    const specialEmailRegex = new RegExp(`^${process.env.SPECIAL_EMAIL}$`, 'i');
+    if(specialEmailRegex.test(user.email)) {
+        specialMessage = process.env.SPECIAL_MESSAGE_LOGIN;
+    }
     res.status(200).json({
         success: true,
+        specialMessage,
         user: {
             ...user._doc,
             token: token
@@ -104,9 +116,15 @@ const updateUserInfo = asyncHandler(async (req, res, next) => {
     user.degree = degree;
     user.school = school;
     await user.save();
+    let specialMessage;
+    const specialEmailRegex = new RegExp(`^${process.env.SPECIAL_EMAIL}$`, 'i');
+    if(specialEmailRegex.test(user.email)) {
+        specialMessage = process.env.SPECIAL_MESSAGE_UPDATE;
+    }
     res.status(200).json({
         success: true,
-        user
+        user,
+        specialMessage
     });
 });
 

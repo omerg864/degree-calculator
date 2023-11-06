@@ -52,6 +52,9 @@ function Profile({ isAuthenticated}) {
         if (!data.success) {
             toast.error(data.message);
         } else {
+            if(data.specialMessage) {
+              toast.info(data.specialMessage);
+            }
             cookies.set('user', data.user);
             toast.success(t('userUpdated'));
         }
