@@ -1,0 +1,38 @@
+{
+    "name": "Degree Calaculator",
+    "short_name": "Degree Calaculator",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+        {
+        "src": "maskable.png",
+        "sizes": "196x196",
+        "type": "image/png",
+        "purpose": "any maskable"
+        },
+        {
+        "src": "logo192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+        },
+        {
+        "src": "logo256.png",
+        "type": "image/png",
+        "sizes": "256x256"
+        },
+        {
+        "src": "logo384.png",
+        "type": "image/png",
+        "sizes": "384x384"
+        },
+        {
+        "src": "logo512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+        }
+    ]
+  }
