@@ -228,8 +228,9 @@ function Home({ isAuthenticated, setTitle}) {
     }
 
     useEffect(()=> {
-        getCourses();
-    }, []);
+        if(isAuthenticated)
+            getCourses();
+    }, [isAuthenticated]);
 
     if(isLoading) {
         return <Spinner/>;
