@@ -33,7 +33,7 @@ function CourseSummaryForm({form, changeForm, simulation, disableGrade, index}) 
             onChange={changeForm}
             size="small"
             onClick={(e) => {e.stopPropagation();}}
-            /> Points
+            />
             <Divider orientation='vertical' sx={{height: "70%"}}/>
             <TextField
             sx={{width: "5rem"}}

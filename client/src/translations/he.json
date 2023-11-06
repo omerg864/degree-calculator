@@ -1,6 +1,9 @@
 {
     "Header" : {
-        "title": "מחשבון"
+        "title": "מחשבון",
+        "switchLan": "שנה שפה ",
+        "profile": "פרופיל",
+        "logout": "התנתק"
     },
     "YearSlider": {
         "year": "שנה"
@@ -26,7 +29,12 @@
         "degreeAvg": "ממוצע תואר"
     },
     "Main": {
-        "degreeAvg":"ממוצע תואר"
+        "degreeAvg":"ממוצע תואר",
+        "save": "שמור",
+        "delete": "מחק",
+        "edit": "ערוך",
+        "binaryPass":"עובר בינארי/מנהלי",
+        "newCourse": "קורס חדש"
     },
     "Home": {
         "back": "חזרה",
@@ -54,5 +62,48 @@
         "completed": "קורסים שהושלמו",
         "binaryPass": "קורסים בעובר בינארי/מנהלי",
         "yearlyCourses": "קורסים שנתיים"
+    },
+    "Profile": {
+        "profile": "פרופיל",
+        "changePassword": "שינוי סיסמה",
+        "userUpdated": "הפרופיל עודכן בהצלחה",
+        "save": "שמור",
+        "name": "שם",
+        "email": "אימייל",
+        "school": "בית ספר",
+        "degree": "תואר"
+    },
+    "PasswordChange": {
+        "passwordChange": "שינוי סיסמה",
+        "newPassword": "סיסמה חדשה",
+        "confirmPassword": "אימות סיסמה",
+        "passwordUpdated": "הסיסמה עודכנה בהצלחה",
+        "save": "שמור",
+        "passwordInvalid": "סיסמה לא תקינה",
+        "passwordsNotMatch": "הסיסמאות לא תואמות",
+        "passwordChanged": "הסיסמה שונתה בהצלחה",
+        "cancel": "ביטול"
+    },
+    "Register": {
+        "register": "הרשמה",
+        "name": "שם",
+        "email": "אימייל",
+        "school": "בית ספר",
+        "degree": "תואר",
+        "password": "סיסמה",
+        "confirmPassword": "אימות סיסמה",
+        "already": "כבר רשום?",
+        "passwordInvalid": "סיסמה לא תקינה",
+        "passwordsNotMatch": "הסיסמאות לא תואמות",
+        "emailInvalid": "אימייל לא תקין",
+        "registerSuccess": "ההרשמה הצליחה",
+        "registerFail": "ההרשמה נכשלה"
+    },
+    "Login": {
+        "login": "התחברות",
+        "email": "אימייל",
+        "password": "סיסמה",
+        "forgot": "שכחתי סיסמה",
+        "noAccount": "אין לך חשבון?"
     }
 }

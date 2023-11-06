@@ -1,31 +1,34 @@
 import React from 'react';
 import { TextField, Box, Button, Paper } from '@mui/material';
 import PasswordInput from '../components/PasswordInput';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { email_regex, password_regex} from '../utils/consts.js';
 import Spinner from '../components/Spinner';
 import PasswordRules from '../components/PasswordRules';
+import { useTranslation } from 'react-i18next';
 
 function Register({ isAuthenticated}) {
     const [formData, setFormData] = useState({ email: '', password: '', confirmPassword: "", name: "", degree: "", school: "" });
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
+    const { t } = useTranslation('translation', { keyPrefix: 'Register' });
+
 
     const handleSubmit = async (e) => {
       e.preventDefault();
       if (formData.password !== formData.confirmPassword) {
-          toast.error('סיסמאות לא תואמות');
+          toast.error(t('passwordsNotMatch'));
           return;
       }
       if (!password_regex.test(formData.password)) {
-          toast.error('סיסמה לא תקינה');
+          toast.error(t('passwordInvalid'));
           return;
       }
       if (!email_regex.test(formData.email)) {
-          toast.error('אימייל לא תקין');
+          toast.error(t('emailInvalid'));
           return;
       }
       setIsLoading(true);
@@ -35,6 +38,7 @@ function Register({ isAuthenticated}) {
           if (!data.success) {
               toast.error(data.message);
           } else {
+              toast.success(t('registerSuccess'));
               navigate('/login');
           }
           setIsLoading(false);
@@ -59,17 +63,18 @@ function Register({ isAuthenticated}) {
 
   return (
     <main>
-        <h1>Register</h1>
+        <h1>{t("register")}</h1>
+        <Link to="/login">{t('already')}</Link>
         <Box className='box-container' component={Paper} sx={{width: "60%"}}>
             <form className='box-container' style={{textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '15px'}} onSubmit={handleSubmit}>
-            <TextField fullWidth id="name" label="Name" name='name' required variant="outlined" onChange={handleChange} />
-            <TextField fullWidth id="email" label="Email" name='email' type="email" required variant="outlined" onChange={handleChange} />
-            <TextField fullWidth id="degree" label="Degree" name='degree' required variant="outlined" onChange={handleChange} />
-            <TextField fullWidth id="school" label="School" name='school' required variant="outlined" onChange={handleChange} />
-            <PasswordInput id="password" label="Password" name="password" onChange={handleChange}/>
+            <TextField fullWidth id="name" value={formData.name} label={t('name')} name='name' required variant="outlined" onChange={handleChange} />
+            <TextField fullWidth id="email"  value={formData.email} label={t('email')} name='email' type="email" required variant="outlined" onChange={handleChange} />
+            <TextField fullWidth id="degree"  value={formData.degree} label={t('degree')} name='degree' required variant="outlined" onChange={handleChange} />
+            <TextField fullWidth id="school"  value={formData.school} label={t('school')} name='school' required variant="outlined" onChange={handleChange} />
+            <PasswordInput id="password"  value={formData.password} label={t('password')} name="password" onChange={handleChange}/>
             <PasswordRules />
-            <PasswordInput id="confirmPassword" label="Confirm Password" name="confirmPassword" onChange={handleChange}/>
-            <Button id='btn-primary' variant="contained" color="primary" type="submit" >Register</Button>
+            <PasswordInput id="confirmPassword"  value={formData.confirmPassword} label={t('confirmPassword')} name="confirmPassword" onChange={handleChange}/>
+            <Button id='btn-primary' variant="contained" color="primary" type="submit" >{t('register')}</Button>
             </form>
         </Box>
     </main>

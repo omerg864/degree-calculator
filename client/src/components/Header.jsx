@@ -14,7 +14,7 @@ import i18n from 'i18next';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SchoolIcon from '@mui/icons-material/School';
 
-function Header({isAuthenticated, setIsAuthenticated, title}) {
+function Header({isAuthenticated, setIsAuthenticated, title, setTitle}) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const cookies = new Cookies();
@@ -30,6 +30,7 @@ function Header({isAuthenticated, setIsAuthenticated, title}) {
         setIsAuthenticated(false);
         cookies.remove('userToken');
         cookies.remove('user');
+        setTitle(null);
     }
     navigate('/login');
   }
@@ -50,7 +51,7 @@ function Header({isAuthenticated, setIsAuthenticated, title}) {
     i18n.changeLanguage(i18n.language === 'en' ? 'he' : 'en');
   }
 
-  const settings = [{name: 'Profile', func: gotoProfile}, {name: 'Logout', func:authenticationAction}];
+  const settings = [{name: t("profile"), func: gotoProfile},  {name: `${t("switchLan")} ${i18n.language === 'en' ? 'Hebrew' : 'לאנגלית'}`, func: changeLanguage}, {name: t("logout"), func:authenticationAction}];
 
 
 
@@ -125,7 +126,7 @@ function Header({isAuthenticated, setIsAuthenticated, title}) {
                 </MenuItem>
               ))}
             </Menu>
-          </Box> : null}
+          </Box> : <Box sx={{flexGrow: 1}}></Box>}
       </Container>
     </AppBar>
   );

@@ -76,5 +76,59 @@ const verify = asyncHandler(async (req, res, next) => {
     });
 });
 
+const getUser = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.user._id);
+    if(!user) {
+        res.status(400);
+        throw new Error('User not found');
+    }
+    res.status(200).json({
+        success: true,
+        user: user
+    });
+});
 
-export {login, register, verify};
+const updateUserInfo = asyncHandler(async (req, res, next) => {
+    const { name, email, degree, school } = req.body;
+    if(!name, !email, !degree, !school) {
+        res.status(400);
+        throw new Error('Please fill all the fields');
+    }
+    const user = await User.findById(req.user._id);
+    if(!user) {
+        res.status(400);
+        throw new Error('User not found');
+    }
+    user.name = name;
+    user.email = email;
+    user.degree = degree;
+    user.school = school;
+    await user.save();
+    res.status(200).json({
+        success: true,
+        user
+    });
+});
+
+const updateUserPassword = asyncHandler(async (req, res, next) => {
+    const { password } = req.body;
+    if(!password) {
+        res.status(400);
+        throw new Error('Please fill all the fields');
+    }
+    const user = await User.findById(req.user._id);
+    if(!user) {
+        res.status(400);
+        throw new Error('User not found');
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    user.password = hashedPassword;
+    await user.save();
+    res.status(200).json({
+        success: true
+    });
+});
+
+
+export {login, register, verify, getUser, updateUserInfo, updateUserPassword};

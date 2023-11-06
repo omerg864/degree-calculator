@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import Cookies from 'universal-cookie';
 import Spinner from '../components/Spinner.jsx';
 import { addDays } from '../utils/generalFunctions.js';
+import { useTranslation } from 'react-i18next';
 
 function Login({ setIsAuthenticated, isAuthenticated}) {
 
@@ -13,6 +14,8 @@ function Login({ setIsAuthenticated, isAuthenticated}) {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const cookies = new Cookies();
+
+    const { t } = useTranslation('translation', { keyPrefix: 'Login' });
 
 
     const handleChange = (e) => {
@@ -26,6 +29,7 @@ function Login({ setIsAuthenticated, isAuthenticated}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(e.target);
         setIsLoading(true);
         try {
           const response = await fetch(`/api/user/login`, { headers: {"Content-type": "application/json"} ,method: 'POST', body: JSON.stringify(userData)})
@@ -51,15 +55,15 @@ function Login({ setIsAuthenticated, isAuthenticated}) {
 
   return (
     <main>
-    <h1>Login</h1>
+    <h1>{t('login')}</h1>
       <Box className='box-container' sx={{width: "60%"}} component={Paper}>
           <form className='box-container' style={{textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '15px'}} onSubmit={handleSubmit} >
-              <TextField fullWidth id="email" label="email" name='email' type="email" required variant="outlined" onChange={handleChange} />
-              <PasswordInput name="password" label="password" id="password" onChange={handleChange} />
+              <TextField fullWidth id="email" value={userData.email} label={t('email')} name='email' type="email" required variant="outlined" onChange={handleChange} />
+              <PasswordInput name="password" value={userData.password} label={t('password')} id="password" onChange={handleChange} />
             {/*<Link to="/password/reset/email">forgot password?</Link>*/}
-            <Link to="/register">don't have an account?</Link>
+            <Link to="/register">{t('noAccount')}</Link>
             <div>
-            <Button id='btn-primary' variant="contained" color="primary" type="submit" >login</Button>
+            <Button id='btn-primary' variant="contained" color="primary" type="submit" >{t('login')}</Button>
             </div>
           </form>
       </Box>

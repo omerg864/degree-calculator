@@ -1,6 +1,9 @@
 {
     "Header" : {
-        "title" : "Calculator"
+        "title" : "Calculator",
+        "switchLan": "Switch to ",
+        "profile": "Profile",
+        "logout": "Logout"
     },
     "YearSlider": {
         "year": "Year"
@@ -26,7 +29,12 @@
         "degreeAvg": "Degree Average"
     },
     "Main": {
-        "degreeAvg": "Degree Average"
+        "degreeAvg": "Degree Average",
+        "save": "Save",
+        "delete": "Delete",
+        "edit": "Edit",
+        "binaryPass": "Binary Pass Course",
+        "newCourse": "New Course"
     },
     "Home": {
         "back": "Back",
@@ -58,5 +66,48 @@
     "Verify": {
         "login": "your account has been verified successfully",
         "Verify": "you will now be redirected to the login page"
+    },
+    "Profile": {
+        "profile": "Profile",
+        "changePassword": "Change Password",
+        "userUpdated": "User Updated Successfully",
+        "save": "Save",
+        "name": "Name",
+        "email": "Email",
+        "school": "School",
+        "degree": "Degree"
+    },
+    "PasswordChange": {
+        "passwordChange": "Change Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm Password",
+        "passwordUpdated": "Password Updated Successfully",
+        "save": "Save",
+        "passwordInvalid": "Password does not match the rules",
+        "passwordsNotMatch": "Passwords do not match",
+        "passwordChanged": "Password Changed Successfully",
+        "cancel": "Cancel"
+    },
+    "Register": {
+        "register": "Register",
+        "name": "Name",
+        "email": "Email",
+        "school": "School",
+        "degree": "Degree",
+        "password": "Password",
+        "confirmPassword": "Confirm Password",
+        "already": "Already have an account?",
+        "passwordInvalid": "Password does not match the rules",
+        "passwordsNotMatch": "Passwords do not match",
+        "emailInvalid": "Email is invalid",
+        "registerSuccess": "Registration Successful",
+        "registerFail": "Registration Failed"
+    },
+    "Login": {
+        "login": "Login",
+        "email": "Email",
+        "password": "Password",
+        "forgot": "Forgot Password?",
+        "noAccount": "Don't have an account?"
     }
 }

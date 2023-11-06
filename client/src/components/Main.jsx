@@ -199,15 +199,15 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
                                     </IconButton> : <></>}
                     {edit === c._id ? <div><FormControlLabel sx={{margin: 0}} control={<Checkbox onChange={changeCheckBox} name="binaryPass" checked={form.binaryPass} />} label={t("binaryPass")} /></div> : <></>}
                     {simulation ? <></> : edit === c._id ? <div className='space' style={{padding: "1rem 1rem"}}>
-                        <Button variant="contained" color="error" onClick={() => deleteCourse(c._id, setEdit, setExpanded)}>
-                            Delete
+                        <Button variant="outlined" color="error" onClick={() => deleteCourse(c._id, setEdit, setExpanded)}>
+                            {t("delete")}
                         </Button>
                         <Button variant="contained" color="primary" id='btn-primary' onClick={() => updateCourse(c._id, form, setEdit, setExpanded)}>
-                            Save
+                        {t("save")}
                         </Button>
                     </div> : <div className='edit-container'>
                             <Button variant="contained" color="primary" id='btn-primary' onClick={() => {editCourse(c)}}>
-                                Edit
+                            {t("edit")}
                             </Button>
                         </div>}
                     </AccordionDetails>
@@ -238,17 +238,17 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
                     </IconButton>
                     <div className='space' style={{padding: "1rem 1rem"}}>
                         <Button variant="contained" color="error" onClick={removeNewCourse}>
-                            Delete
+                        {t("delete")}
                         </Button>
                         <Button variant="contained" color="primary" id='btn-primary' onClick={() => createCourse(form, setExpanded, setNewCourse)}>
-                            Save
+                        {t("save")}
                         </Button>
                     </div>
                     </AccordionDetails>
                 </Accordion>
     </> : <></>}
     <Button sx={{width: "fit-content", margin: "0.7rem 0"}} onClick={openNewCourse}>
-        New Course
+        {t("newCourse")}
     </Button>
     </div>
     </>
