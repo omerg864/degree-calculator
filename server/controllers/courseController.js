@@ -17,6 +17,7 @@ const getUserCourses = asyncHandler(async (req, res, next) => {
                 assignments: 1,
                 year: 1,
                 semester: 1,
+                binaryPass: 1,
             }
         },
         {
@@ -34,14 +35,14 @@ const getUserCourses = asyncHandler(async (req, res, next) => {
                         assignments: "$assignments",
                         year: "$year",
                         semester: "$semester",
+                        binaryPass: "$binaryPass",
                     }
                 }
             }
         },
         {
             $sort: {
-                year: 1,
-                semester: -1
+                _id: 1
             }
         }
     ]);
@@ -74,11 +75,12 @@ const updateCourse = asyncHandler(async (req, res, next) => {
         res.status(404);
         throw new Error('Course not found');
     }
-    const {name, points, grade, assignments } = req.body;
+    const {name, points, grade, assignments, binaryPass } = req.body;
     course.name = name;
     course.points = points;
     course.grade = grade;
     course.assignments = assignments;
+    course.binaryPass = binaryPass;
     const updatedCourse = await course.save();
     res.status(200).json({
         success: true,

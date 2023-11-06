@@ -16,7 +16,7 @@ import Simulation from '../components/Simulation';
 import Summary from '../components/Summary';
 
 
-function Home({ isAuthenticated}) {
+function Home({ isAuthenticated, setTitle}) {
 
     const { t }= useTranslation('translation', { keyPrefix: 'Home' });
 
@@ -182,6 +182,7 @@ function Home({ isAuthenticated}) {
                 setCourses(calculated[0]);
                 setDegreeAvg(calculated[1]);
                 setYearAvgs(calculated[2]);
+                setTitle(`${t('degreeAvg')}: ${calculated[1]}`)
             }
             setIsLoading(false);
         } catch (err) {

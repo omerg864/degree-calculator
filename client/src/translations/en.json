@@ -12,7 +12,8 @@
     "CourseSummary": {
         "grade" : "Grade",
         "credits" : "Credits",
-        "name" : "Name"
+        "name" : "Name",
+        "binaryPass": "Pass"
     },
     "Assignment": {
         "grade" : "Grade",
@@ -31,7 +32,8 @@
         "back": "Back",
         "next": "Next",
         "summary": "Summary",
-        "simulation": "Simulation"
+        "simulation": "Simulation",
+        "degreeAvg":"Degree Average"
     },
     "PasswordRules" : {
         "start": "Password must be:",

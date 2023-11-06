@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { arrayIncludes, calculateCourse } from '../utils/generalFunctions';
-import { IconButton, Typography, Divider, Accordion, AccordionSummary, AccordionDetails, Button } from '@mui/material';
+import { IconButton, Divider, Accordion, AccordionSummary, AccordionDetails, Button, Checkbox, FormControlLabel } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import SemesterSlider from '../components/SemesterSlider.jsx';
@@ -26,6 +26,7 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
         assignments: [],
         points: 0,
         _id: "",
+        binaryPass: false,
         semester: 1,
         year: 1
     });
@@ -103,6 +104,7 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
                 grade: 0,
                 assignments: [],
                 points: 0,
+                binaryPass: false,
                 _id: "",
             });
             setExpanded("new");
@@ -121,6 +123,10 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
 
     const changeForm = (e) => {
         setForm({...form, [e.target.name]: e.target.value})
+    }
+
+    const changeCheckBox = (e) => {
+        setForm({...form, [e.target.name]: e.target.checked})
     }
 
     const changeAssignments = (e, index) => {
@@ -156,11 +162,6 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
 
   return (
     <>
-    <div className='avgRow light-background'>
-        <Typography variant='h6'>
-            {t("degreeAvg")}: {degreeAvg}
-        </Typography>
-    </div>
     <YearSlider year={year} yearAvgs={yearAvgs} plusYear={plusYear} minusYear={minusYear}/>
     <div className='courses'>
     {courses.filter((semesters) => semesters._id.year === year && semester === semesters._id.semester).length ? null : 
@@ -196,6 +197,7 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
                     {edit === c._id ? <IconButton onClick={newAssignment}>
                                         <AddIcon sx={{color: "green"}}/>
                                     </IconButton> : <></>}
+                    {edit === c._id ? <div><FormControlLabel sx={{margin: 0}} control={<Checkbox onChange={changeCheckBox} name="binaryPass" checked={form.binaryPass} />} label={t("binaryPass")} /></div> : <></>}
                     {simulation ? <></> : edit === c._id ? <div className='space' style={{padding: "1rem 1rem"}}>
                         <Button variant="contained" color="error" onClick={() => deleteCourse(c._id, setEdit, setExpanded)}>
                             Delete

@@ -96,7 +96,7 @@ main {
 
 .avgRow {
   width: 100%;
-  background-color: var(--light-dark-color);
+  background-color: var(--light-color);
   padding: 5px;
   display: flex;
   justify-content: center;

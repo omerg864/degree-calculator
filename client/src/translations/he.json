@@ -12,7 +12,8 @@
     "CourseSummary": {
         "grade" : "ציון",
         "credits" : "נק\"ז",
-        "name" : "שם הקורס"
+        "name" : "שם הקורס",
+        "binaryPass": "עובר"
     },
     "Assignment": {
         "grade" : "ציון",
@@ -31,7 +32,8 @@
         "back": "חזרה",
         "next": "הבא",
         "summary": "סיכום",
-        "simulation": "סימולציה"
+        "simulation": "סימולציה",
+        "degreeAvg":"ממוצע תואר"
     },
     "PasswordRules" : {
         "start": "סיסמה חייבת להיות:",

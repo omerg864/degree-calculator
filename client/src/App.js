@@ -14,6 +14,7 @@ function App() {
   const cookies = new Cookies();
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [title, setTitle] = useState();
 
   if (cookies.get('userToken') && !isAuthenticated) {
     setIsAuthenticated(true);
@@ -23,9 +24,9 @@ function App() {
     <>
     <ToastContainer theme="colored"/>
     <Router>
-    <Header direction="rtl" isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+    <Header direction="rtl" isAuthenticated={isAuthenticated} title={title} setIsAuthenticated={setIsAuthenticated}/>
       <Routes>
-        <Route path="/" element={<Home isAuthenticated={isAuthenticated}/>} />
+        <Route path="/" element={<Home isAuthenticated={isAuthenticated} setTitle={setTitle}/>} />
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated}/>} />
         <Route path="/register" element={<Register/>} />
       </Routes>

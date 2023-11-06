@@ -1,6 +1,6 @@
 import { Box, Checkbox, Divider, Typography } from '@mui/material'
 import React from 'react'
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { calculateCourse } from '../utils/generalFunctions';
 import { useTranslation } from "react-i18next";
 
@@ -21,11 +21,13 @@ function CourseSummaryView({course, select, toggleCourse, checked, disabled}) {
                 {course.points} {t("credits")}
             </Typography>
             <Divider orientation='vertical' sx={{height: "70%"}}/>
-            <Typography sx={{textAlign: "center", minWidth: "2rem"}}>
+            {!course.binaryPass ? <Typography sx={{textAlign: "center", minWidth: "2rem"}}>
                 {course.grade ? course.grade : calculateCourse(course.assignments)}
-            </Typography>
+            </Typography> : <Typography>{t("binaryPass")}</Typography>}
         <div style={{width: "1.5rem", height: "1.9rem"}}>
+        {!course.binaryPass ?
             <CircularProgressbar value={course.grade ? course.grade : calculateCourse(course.assignments)}/>
+            : <CircularProgressbar styles={buildStyles({ pathColor: "green" })} value={100}/>}
         </div>
         </div>
     </Box>
