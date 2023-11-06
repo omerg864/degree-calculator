@@ -7,6 +7,10 @@ import connectDB from "./config/db.js";
 const config = dotenv.config();
 import userRouter from './routes/userRoutes.js';
 import courseRouter from './routes/courseRoutes.js';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 connectDB();
