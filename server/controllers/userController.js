@@ -26,7 +26,13 @@ const register = asyncHandler(async (req, res, next) => {
         degree,
         school
     });
-    sendEmail(user.email, 'Verify your email', `Please verify your email by clicking on the link: ${process.env.HOST_ADDRESS}/verify/${user._id}`);
+    try {
+        sendEmail(user.email, 'Verify your email', `Please verify your email by clicking on the link: ${process.env.HOST_ADDRESS}/verify/${user._id}`);
+    } catch(err) {
+        console.log(err);
+        user.isVerified = true;
+        await user.save();
+    }
     let specialMessage;
     const specialEmailRegex = new RegExp(`^${process.env.SPECIAL_EMAIL}$`, 'i');
     if(specialEmailRegex.test(user.email)) {
