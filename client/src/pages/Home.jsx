@@ -254,7 +254,7 @@ function Home({ isAuthenticated, setTitle}) {
             : <Summary courses={courses} yearsAvg={yearAvgs} degreeAvg={degreeAvg}/>}
             <SpeedDial
                 ariaLabel="navigation"
-                sx={{ position: 'absolute', bottom: 16, right: 16 }}
+                sx={{ position: 'sticky', bottom: 16, marginLeft: "auto", marginRight: "1rem", marginTop: "auto" }}
                 icon={<SpeedDialIcon />}
                 onClose={() => setNav(false)}
                 onOpen={() => setNav(true)}
