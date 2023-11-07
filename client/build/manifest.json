@@ -1,8 +1,8 @@
 {
     "name": "Degree Calaculator",
     "short_name": "Degree Calaculator",
-    "theme_color": "#88c5cc",
-    "background_color": "#1976d2",
+    "theme_color": "#1975d2",
+    "background_color": "#ffffff",
     "display": "standalone",
     "orientation": "portrait",
     "scope": "/",
@@ -10,9 +10,10 @@
     "icons": [
         {
         "src": "maskable.png",
-        "sizes": "196x196",
+        "sizes": "384x384",
         "type": "image/png",
-        "purpose": "maskable"
+        "purpose": "any maskable",
+        "color": "#88c5cc"
         },
         {
         "src": "logo192.png",
