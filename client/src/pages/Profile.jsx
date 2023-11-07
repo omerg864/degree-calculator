@@ -1,10 +1,13 @@
-import { Box, Button, Paper, TextField } from '@mui/material';
+import { Box, Button, IconButton, Paper, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import i18next from 'i18next';
 
 
 function Profile({ isAuthenticated}) {
@@ -72,6 +75,10 @@ function Profile({ isAuthenticated}) {
     navigate('/password/change');
   }
 
+  const gotoHome = () => {
+    navigate('/');
+  }
+
   if(!isAuthenticated) {
     navigate('/login');
   }
@@ -86,7 +93,13 @@ function Profile({ isAuthenticated}) {
 
   return (
     <main>
-      <h1>{t("profile")}</h1>
+      <div className='space' style={{width: "100%", alignItems: "center"}}>
+        <IconButton sx={{height: "fit-content"}} onClick={gotoHome}>
+          {i18next.dir(i18next.language) === 'ltr' ? <ArrowBackIcon/> :<ArrowForwardIcon />}
+        </IconButton>
+        <h1>{t("profile")}</h1>
+        <Box sx={{width: "1.5rem"}}></Box>
+      </div>
         <Box className='box-container' component={Paper} >
             <form style={{textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '15px'}} onSubmit={handleSubmit}>
               <TextField fullWidth id="name" value={user.name} label={t('name')} name='name' required variant="outlined" onChange={handleChange} />
