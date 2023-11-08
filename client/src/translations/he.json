@@ -63,6 +63,10 @@
         "binaryPass": "קורסים בעובר בינארי/מנהלי",
         "yearlyCourses": "קורסים שנתיים"
     },
+    "Verify": {
+        "login": "החשבון אומת בהצלחה",
+        "verify": "אתה עכשיו מופנה לדף ההתחברות"
+    },
     "Profile": {
         "profile": "פרופיל",
         "changePassword": "שינוי סיסמה",

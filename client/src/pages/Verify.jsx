@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from 'react-router-dom';
+import { Typography } from '@mui/material';
 
 function Verify() {
 
@@ -44,7 +45,7 @@ function Verify() {
 
   return (
     <div style={{display: 'flex', width: "100%", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
-        {t('login')}
+        <Typography variant='h5'>{t('login')}</Typography>
     </div>
   )
 }

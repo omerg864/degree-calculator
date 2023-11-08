@@ -3,7 +3,7 @@
   "short_name": "Degree Calaculator",
   "description": "",
   "theme_color": "#1975d2",
-  "background_color": "#ffffff",
+  "background_color": "#1975d2",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/",

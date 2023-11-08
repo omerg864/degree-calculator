@@ -65,7 +65,7 @@
     },
     "Verify": {
         "login": "your account has been verified successfully",
-        "Verify": "you will now be redirected to the login page"
+        "verify": "you will now be redirected to the login page"
     },
     "Profile": {
         "profile": "Profile",
