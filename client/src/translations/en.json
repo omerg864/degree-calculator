@@ -41,7 +41,8 @@
         "next": "Next",
         "summary": "Summary",
         "simulation": "Simulation",
-        "degreeAvg":"Degree Average"
+        "degreeAvg":"Degree Average",
+        "courseAdded": "Course Added Successfully"
     },
     "PasswordRules" : {
         "start": "Password must be:",

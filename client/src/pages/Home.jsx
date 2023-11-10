@@ -101,7 +101,7 @@ function Home({ isAuthenticated, setTitle}) {
                 }
                 setExpanded(false);
                 setNewCourse(false);
-                toast.success("Course Added");
+                toast.success(t('courseAdded'));
             }
             setIsLoading(false);
         } catch (err) {

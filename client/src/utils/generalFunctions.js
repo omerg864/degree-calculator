@@ -82,7 +82,7 @@ export const calculateAverages = (courses) => {
         degreeAvg += yearsSum[i];
         degreePoints += yearsPoints[i];
     }
-    return [courses, (degreeAvg / degreePoints).toFixed(2), yearsAvg];
+    return [courses, (degreePoints ? degreeAvg / degreePoints : 0).toFixed(2), yearsAvg];
 }
 
 

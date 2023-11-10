@@ -41,7 +41,8 @@
         "next": "הבא",
         "summary": "סיכום",
         "simulation": "סימולציה",
-        "degreeAvg":"ממוצע תואר"
+        "degreeAvg":"ממוצע תואר",
+        "courseAdded": "קורס נוסף בהצלחה"
     },
     "PasswordRules" : {
         "start": "סיסמה חייבת להיות:",
