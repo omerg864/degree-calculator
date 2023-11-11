@@ -10,6 +10,13 @@ div {
   --secondary-color: #A7FFF6;
 }
 
+body {
+  background-color: #1975d2;
+}
+main {
+  background-color: #fff;
+}
+
 html, body, #root {
   min-height: 100vh;
 }
