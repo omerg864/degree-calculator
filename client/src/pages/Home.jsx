@@ -97,6 +97,7 @@ function Home({ isAuthenticated, setTitle}) {
                     let calculated = calculateAverages(coursesTemp);
                     setCourses(calculated[0]);
                     setDegreeAvg(calculated[1]);
+                    setTitle(`${t('degreeAvg')}: ${calculated[1]}`);
                     setYearAvgs(calculated[2]);
                 }
                 setExpanded(false);
@@ -134,6 +135,7 @@ function Home({ isAuthenticated, setTitle}) {
                 let calculated = calculateAverages(coursesTemp);
                 setCourses(calculated[0]);
                 setDegreeAvg(calculated[1]);
+                setTitle(`${t('degreeAvg')}: ${calculated[1]}`);
                 setYearAvgs(calculated[2]);
             }
             setIsLoading(false);
@@ -162,6 +164,7 @@ function Home({ isAuthenticated, setTitle}) {
                 let calculated = calculateAverages(coursesTemp);
                 setCourses(calculated[0]);
                 setDegreeAvg(calculated[1]);
+                setTitle(`${t('degreeAvg')}: ${calculated[1]}`);
                 setYearAvgs(calculated[2]);
             }
             setIsLoading(false);

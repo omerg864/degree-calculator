@@ -19,7 +19,9 @@ function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, 
 
     const changeAssignments = (e, index, indexCourse, grade) => {
         let { name, value } = e.target;
-        const temp = [...simulationData.courses];
+        const temp = simulationData.courses.map((course) => {
+            return {...course, assignments: course.assignments.map(ass => {return {...ass}})}
+         });
         if(grade) {
             name = "grade";
             value = temp[indexCourse].assignments[index][name];
@@ -36,7 +38,7 @@ function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, 
             }
         }
         temp[indexCourse].assignments[index][name] = value;
-        setSimulationData({courses: temp, ...simulationData});
+        setSimulationData({...simulationData, courses: temp});
         let temp2 = coursesTemp.map((semester) => {
             semester.courses = semester.courses.map((course2) => {
                 if(course2._id === temp[indexCourse]._id) {
@@ -54,7 +56,9 @@ function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, 
 
     const changeForm = (e, index, grade) => {
         let { name, value } = e.target;
-        const temp = [...simulationData.courses];
+        const temp = simulationData.courses.map((course) => {
+            return {...course, assignments: course.assignments.map(ass => {return {...ass}})}
+         });
         if(grade) {
             name = "grade";
             value = temp[index][name] ? temp[index][name] : calculateCourse(temp[index].assignments);
@@ -71,7 +75,7 @@ function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, 
             }
         }
         temp[index][name] = value;
-        setSimulationData({courses: temp, ...simulationData});
+        setSimulationData({...simulationData, courses: temp});
         let temp2 = coursesTemp.map((semester) => {
             semester.courses = semester.courses.map((course2) => {
                 if(course2._id === temp[index]._id) {

@@ -39,6 +39,7 @@
     "Home": {
         "back": "חזרה",
         "next": "הבא",
+        "cancel":"ביטול",
         "summary": "סיכום",
         "simulation": "סימולציה",
         "degreeAvg":"ממוצע תואר",

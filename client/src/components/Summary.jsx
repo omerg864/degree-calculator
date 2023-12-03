@@ -14,8 +14,6 @@ function Summary({courses, yearsAvg, degreeAvg}) {
         setExpanded(isExpanded ? panel : false);
       };
 
-    console.log(courses);
-
     const countPoints = (year) => {
         let points = 0;
         courses.forEach((semester) => {

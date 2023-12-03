@@ -29,7 +29,6 @@ function Login({ setIsAuthenticated, isAuthenticated}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(e.target);
         setIsLoading(true);
         try {
           const response = await fetch(`/api/user/login`, { headers: {"Content-type": "application/json"} ,method: 'POST', body: JSON.stringify(userData)})

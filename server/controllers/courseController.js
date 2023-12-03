@@ -60,10 +60,17 @@ const getUserCourses = asyncHandler(async (req, res, next) => {
 
 const createCourse = asyncHandler(async (req, res, next) => {
     const {name, points, grade, assignments, year, semester} = req.body;
+    let tempGrade;
+    if(assignments.length) {
+        tempGrade = null;
+    }
+    else {
+        tempGrade = grade;
+    }
     const course = await Course.create({
         name,
         points,
-        grade,
+        grade: tempGrade,
         assignments,
         year,
         semester,
@@ -90,7 +97,11 @@ const updateCourse = asyncHandler(async (req, res, next) => {
     const {name, points, grade, assignments, binaryPass } = req.body;
     course.name = name;
     course.points = points;
-    course.grade = grade;
+    if(assignments.length) {
+        course.grade = null;
+    } else {
+        course.grade = grade;
+    }
     course.assignments = assignments;
     course.binaryPass = binaryPass;
     const updatedCourse = await course.save();

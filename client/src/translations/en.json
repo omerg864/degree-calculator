@@ -39,6 +39,7 @@
     "Home": {
         "back": "Back",
         "next": "Next",
+        "cancel": "Cancel",
         "summary": "Summary",
         "simulation": "Simulation",
         "degreeAvg":"Degree Average",
