@@ -63,7 +63,9 @@
         "creditsForAvg": "נק\"ז לממוצע",
         "completed": "קורסים שהושלמו",
         "binaryPass": "קורסים בעובר בינארי/מנהלי",
-        "yearlyCourses": "קורסים שנתיים"
+        "yearlyCourses": "קורסים שנתיים",
+        "summary": "סיכום",
+        "degree": "תואר"
     },
     "Verify": {
         "login": "החשבון אומת בהצלחה",

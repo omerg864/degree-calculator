@@ -58,7 +58,7 @@ export const calculateAverages = (courses) => {
         let avgData = calculateSemesterAvg(courses[i].courses);
         courses[i]._id.sum = avgData[0];
         courses[i]._id.points = avgData[1];
-        courses[i]._id.avg = (avgData[0] / avgData[1]).toFixed(2);
+        courses[i]._id.avg = avgData[1] ? (avgData[0] / avgData[1]).toFixed(2) : 0;
         courses[i]._id.completedCourses = avgData[2];
         courses[i]._id.binaryPass = avgData[3];
         courses[i]._id.OngoingCourses = courses[i].courses.length - courses[i]._id.completedCourses - courses[i]._id.binaryPass;
@@ -78,7 +78,7 @@ export const calculateAverages = (courses) => {
     let degreePoints = 0;
     let degreeAvg = 0;
     for(let i = 0; i <yearsSum.length;i++) {
-        yearsAvg[i] = (yearsSum[i] / yearsPoints[i]).toFixed(2);
+        yearsAvg[i] = yearsPoints[i] ? (yearsSum[i] / yearsPoints[i]).toFixed(2) : 0;
         degreeAvg += yearsSum[i];
         degreePoints += yearsPoints[i];
     }

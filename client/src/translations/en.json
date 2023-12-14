@@ -63,7 +63,9 @@
         "creditsForAvg": "Credits For Average",
         "completed": "Completed Courses",
         "binaryPass": "Binary Pass Courses",
-        "yearlyCourses": "Yearly Courses"
+        "yearlyCourses": "Yearly Courses",
+        "summary": "Summary",
+        "degree": "Degree"
     },
     "Verify": {
         "login": "your account has been verified successfully",

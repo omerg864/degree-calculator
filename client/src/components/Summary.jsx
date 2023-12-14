@@ -24,15 +24,121 @@ function Summary({courses, yearsAvg, degreeAvg}) {
         return points;
     }
 
+    console.log(courses);
+
+    const countDegreePoints = () => {
+        let points = 0;
+        courses.forEach((semester) => {
+            points += semester._id.sumAllPoints;
+        })
+        return points;
+    }
+
+    const countDegreeAvgPoints = () => {
+        let points = 0;
+        courses.forEach((semester) => {
+            points += semester._id.points;
+        })
+        return points;
+    }
+
+    const countDegreeOngoingCourses = () => {
+        let coursesCount = 0;
+        courses.forEach((semester) => {
+            coursesCount += semester._id.OngoingCourses;
+        })
+        return coursesCount;
+    }
+
+    const countDegreeCompletedCourses = () => {
+        let coursesCount = 0;
+        courses.forEach((semester) => {
+            coursesCount += semester._id.completedCourses;
+        })
+        return coursesCount;
+    }
+
+    const countDegreeBinaryPass = () => {
+        let coursesCount = 0;
+        courses.forEach((semester) => {
+            coursesCount += semester._id.binaryPass;
+        })
+        return coursesCount;
+    }
+
   return (
-    <div style={{width: "100%"}}>
-        <div style={{width: "100%", display: "flex", justifyContent: "center"}}>
-            <div className='circleContainer'>
-                <CircularProgressbarWithChildren value={degreeAvg}>
-                    <Typography>{t("degreeAvg")}</Typography>
-                    <Typography>{degreeAvg}</Typography>
-                </CircularProgressbarWithChildren>
-            </div>
+    <div style={{width: "100%", textAlign: 'center'}}>
+        <h1>{t("summary")}</h1>
+        <div style={{width: "100%", display: "flex", justifyContent: "center", marginBottom: '10px'}}>
+        <Accordion sx={{width: "100%"}} expanded={expanded === -1} onChange={handleChange(-1)}>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content">
+                            <Box className='space' sx={{width: "100%", padding: "0.5rem 1rem", boxSizing: "border-box"}}>
+                                <Typography>
+                                    {t("degree")}
+                                </Typography>
+                                <div className='row'>
+                                <Typography>
+                                    {countDegreePoints()} {t("credits")}
+                                </Typography>
+                                <Divider orientation='vertical' sx={{height: "70%"}}/>
+                                    <Typography>
+                                        {degreeAvg}
+                                    </Typography>
+                                    <div style={{width: "1.5rem", height: "1.9rem"}}>
+                                        <CircularProgressbar value={degreeAvg}/>
+                                    </div>
+                                </div>
+                            </Box>
+                        </AccordionSummary>
+                        <AccordionDetails sx={{paddingLeft: "0", paddingRight: "0"}}>
+                        <Divider orientation='horizontal'/>
+                        <div style={{width: "100%"}}>
+                                    <Box >
+                                        <Box className='space' sx={{width: "100%", padding: "0.5rem 1rem", boxSizing: "border-box"}}>
+                                            <Typography>
+                                                {t("creditsForAvg")}
+                                            </Typography>
+                                                <Typography>
+                                                    {countDegreeAvgPoints()}
+                                                </Typography>
+                                        </Box>
+                                        <Box className='space' sx={{width: "100%", padding: "0.5rem 1rem", boxSizing: "border-box"}}>
+                                            <Typography>
+                                                {t("credits")}
+                                            </Typography>
+                                                <Typography>
+                                                    {countDegreePoints()}
+                                                </Typography>
+                                        </Box>
+                                        <Box className='space' sx={{width: "100%", padding: "0.5rem 1rem", boxSizing: "border-box"}}>
+                                            <Typography>
+                                                {t("courses")}
+                                            </Typography>
+                                                <Typography>
+                                                    {countDegreeOngoingCourses() + countDegreeCompletedCourses()}
+                                                </Typography>
+                                        </Box>
+                                        <Box className='space' sx={{width: "100%", padding: "0.5rem 1rem", boxSizing: "border-box"}}>
+                                            <Typography>
+                                                {t("completed")}
+                                            </Typography>
+                                                <Typography>
+                                                    {countDegreeCompletedCourses()}
+                                                </Typography>
+                                        </Box>
+                                        <Box className='space' sx={{width: "100%", padding: "0.5rem 1rem", boxSizing: "border-box"}}>
+                                            <Typography>
+                                                {t("binaryPass")}
+                                            </Typography>
+                                                <Typography>
+                                                    {countDegreeBinaryPass()}
+                                                </Typography>
+                                        </Box>
+                                        <Divider orientation='horizontal'/>
+                                    </Box>
+                        </div>
+                        </AccordionDetails>
+                    </Accordion>
         </div>
         <div className='courses'>
             {yearsAvg.map((yearAvg, index) => {
@@ -68,7 +174,7 @@ function Summary({courses, yearsAvg, degreeAvg}) {
                                     <Box key={`sem ${index2}`}>
                                         <Box className='space' sx={{width: "100%", padding: "0.5rem 1rem", boxSizing: "border-box"}}>
                                             <Typography>
-                                                {t("semester")} {semester._id.semester}
+                                                {semester._id.semester === 4 ? t("yearlyCourses") :  t("semester")} {semester._id.semester === 4 ? null : semester._id.semester}
                                             </Typography>
                                             <div className='row'>
                                                 <Typography>
