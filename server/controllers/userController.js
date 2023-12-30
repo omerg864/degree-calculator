@@ -3,6 +3,7 @@ import User from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { sendEmail } from '../utils/generalFunctions.js';
+import { password_regex, email_regex } from '../utils/consts.js';
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -12,6 +13,18 @@ const generateToken = (id) => {
 
 const register = asyncHandler(async (req, res, next) => {
     const {name, email, password, degree, school} = req.body;
+    if(!name, !email, !password, !degree, !school) {
+        res.status(400);
+        throw new Error('Please fill all the fields');
+    }
+    if(!email_regex.test(email)) {
+        res.status(400);
+        throw new Error('Invalid email');
+    }
+    if(!password_regex.test(password)) {
+        res.status(400);
+        throw new Error('Invalid password');
+    }
     const userExists = await User.findOne({ "email" : { $regex : new RegExp(email, "i") } });
     if (userExists) {
         res.status(400)
