@@ -60,6 +60,14 @@ const register = asyncHandler(async (req, res, next) => {
 
 const login = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
+    if(!email_regex.test(email)) {
+        res.status(400);
+        throw new Error('Invalid email');
+    }
+    if(!password_regex.test(password)) {
+        res.status(400);
+        throw new Error('Invalid password');
+    }
     var user = await User.findOne({ "email" : { $regex : new RegExp(`^${email}$`, 'i') } });
     if (!user) {
         res.status(400);
