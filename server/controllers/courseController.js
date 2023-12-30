@@ -59,6 +59,7 @@ const getUserCourses = asyncHandler(async (req, res, next) => {
 });
 
 const createCourse = asyncHandler(async (req, res, next) => {
+    console.log(req.body);
     const {name, points, grade, assignments, year, semester} = req.body;
     let tempGrade;
     if(assignments.length) {

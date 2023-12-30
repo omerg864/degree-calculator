@@ -8,6 +8,9 @@ const config = dotenv.config();
 import userRouter from './routes/userRoutes.js';
 import courseRouter from './routes/courseRoutes.js';
 import { fileURLToPath } from 'url';
+import mongoSanitize from 'express-mongo-sanitize';
+import cors from 'cors';
+import sanitizeMiddleware from './middleware/sanitizeMiddleware.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,6 +24,16 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(mongoSanitize());
+
+app.use(cors(
+  {
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+  }
+));
+app.use(sanitizeMiddleware);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
