@@ -17,6 +17,7 @@ main {
   background-color: #fff;
 }
 
+
 html, body, #root {
   min-height: 100vh;
 }

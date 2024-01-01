@@ -11,6 +11,7 @@ import { fileURLToPath } from 'url';
 import mongoSanitize from 'express-mongo-sanitize';
 import cors from 'cors';
 import sanitizeMiddleware from './middleware/sanitizeMiddleware.js';
+import rateLimiterMiddleware from './middleware/rateLimiterMiddleware.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,6 +35,7 @@ app.use(cors(
   }
 ));
 app.use(sanitizeMiddleware);
+app.use(rateLimiterMiddleware);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
