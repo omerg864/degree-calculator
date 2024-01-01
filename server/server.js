@@ -28,7 +28,6 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(mongoSanitize());
 
-app.enable('trust proxy');
 
 app.use(cors(
   {

@@ -8,6 +8,7 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from 'i18next-browser-languagedetector';
 import en from './translations/en.json';
 import he from './translations/he.json';
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 i18n
 .use(initReactI18next) // passes i18n down to react-i18next
@@ -41,3 +42,4 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+serviceWorkerRegistration.register();
