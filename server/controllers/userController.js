@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { sendEmail } from '../utils/generalFunctions.js';
 import { password_regex, email_regex } from '../utils/consts.js';
+import _ from 'lodash';
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -47,7 +48,8 @@ const register = asyncHandler(async (req, res, next) => {
         await user.save();
     }
     let specialMessage;
-    const specialEmailRegex = new RegExp(`^${process.env.SPECIAL_EMAIL}$`, 'i');
+    const clean = _.escapeRegExp(process.env.SPECIAL_EMAIL);
+    const specialEmailRegex = new RegExp(`^${clean}$`, 'i');
     if(specialEmailRegex.test(user.email)) {
         specialMessage = process.env.SPECIAL_MESSAGE_REGISTER;
     }
@@ -88,7 +90,8 @@ const login = asyncHandler(async (req, res, next) => {
     delete user._doc["updatedAt"]
     delete user._doc["__v"];
     let specialMessage;
-    const specialEmailRegex = new RegExp(`^${process.env.SPECIAL_EMAIL}$`, 'i');
+    const clean = _.escapeRegExp(process.env.SPECIAL_EMAIL);
+    const specialEmailRegex = new RegExp(`^${clean}$`, 'i');
     if(specialEmailRegex.test(user.email)) {
         specialMessage = process.env.SPECIAL_MESSAGE_LOGIN;
     }
@@ -145,7 +148,8 @@ const updateUserInfo = asyncHandler(async (req, res, next) => {
     user.school = school;
     await user.save();
     let specialMessage;
-    const specialEmailRegex = new RegExp(`^${process.env.SPECIAL_EMAIL}$`, 'i');
+    const clean = _.escapeRegExp(process.env.SPECIAL_EMAIL);
+    const specialEmailRegex = new RegExp(`^${clean}$`, 'i');
     if(specialEmailRegex.test(user.email)) {
         specialMessage = process.env.SPECIAL_MESSAGE_UPDATE;
     }

@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Course from '../models/courseModel.js';
+import _ from 'lodash';
 
 const getUserCourses = asyncHandler(async (req, res, next) => {
     const courses = await Course.aggregate([
@@ -47,7 +48,8 @@ const getUserCourses = asyncHandler(async (req, res, next) => {
         }
     ]);
     let specialMessage;
-    const specialEmailRegex = new RegExp(`^${process.env.SPECIAL_EMAIL}$`, 'i');
+    const clean = _.escapeRegExp(process.env.SPECIAL_EMAIL);
+    const specialEmailRegex = new RegExp(`^${clean}$`, 'i');
     if(specialEmailRegex.test(req.user.email)) {
         specialMessage = process.env.SPECIAL_MESSAGE_HOME;
     }
@@ -78,7 +80,8 @@ const createCourse = asyncHandler(async (req, res, next) => {
         userId: req.user._id
     });
     let specialMessage;
-    const specialEmailRegex = new RegExp(`^${process.env.SPECIAL_EMAIL}$`, 'i');
+    const clean = _.escapeRegExp(process.env.SPECIAL_EMAIL);
+    const specialEmailRegex = new RegExp(`^${clean}$`, 'i');
     if(specialEmailRegex.test(req.user.email)) {
         specialMessage = process.env.SPECIAL_MESSAGE_CREATE_COURSE;
     }
