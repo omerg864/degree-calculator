@@ -250,7 +250,6 @@ function Home({ isAuthenticated, setTitle}) {
     
     return (
         <main>
-            asdfasf
             {tab === 'main' ? <Main courses={courses} year={year} semester={semester} simulationData={simulationData} setSimulationData={setSimulationData}
             plusSemester={plusSemester} plusYear={plusYear} minusSemester={minusSemester} minusYear={minusYear} simulation={simulation} setSimulation={setSimulation}
             yearAvgs={yearAvgs} degreeAvg={degreeAvg} deleteCourse={deleteCourse} updateCourse={updateCourse} createCourse={createCourse} /> : 

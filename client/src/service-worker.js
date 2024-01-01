@@ -46,18 +46,6 @@ registerRoute(
   createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html')
 );
 
-const handleCacheFirst = ({event}) => {
-  return caches.match(event.request).then(response => {
-    console.log(response);
-    return response || fetch(event.request);
-  });
-}
-
-registerRoute(
-  ({url}) => url.origin === self.location.origin && (url.pathname.endsWith('.js') || url.pathname.endsWith('.css')),
-  handleCacheFirst
-);  
-
 // An example runtime caching route for requests that aren't handled by the
 // precache, in this case same-origin .png requests like those from in public/
 registerRoute(
@@ -72,12 +60,40 @@ registerRoute(
     ],
   }));
 
+  registerRoute(
+    // Add in any other file extensions or routing criteria as needed.
+    ({ url }) => (url.origin === self.location.origin && (url.pathname.endsWith('.js') || url.pathname.endsWith('.css'))), // Customize this strategy as needed, e.g., by changing to CacheFirst.
+    new StaleWhileRevalidate({
+      cacheName: 'static-resources',
+      plugins: [
+        // Ensure that once this runtime cache reaches a maximum size the
+        // least-recently used images are removed.
+        new ExpirationPlugin({ maxEntries: 100 }),
+      ],
+    }
+  ));
+
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
+});
+
+const deleteCache = async (key) => {
+  await caches.delete(key);
+};
+
+const deleteOldCaches = async () => {
+  const cacheKeepList = ["v2"];
+  const keyList = await caches.keys();
+  const cachesToDelete = keyList.filter((key) => !cacheKeepList.includes(key));
+  await Promise.all(cachesToDelete.map(deleteCache));
+};
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(deleteOldCaches());
 });
 
 // Any other custom service worker logic can go here.
