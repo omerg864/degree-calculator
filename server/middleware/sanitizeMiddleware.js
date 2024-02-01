@@ -30,11 +30,10 @@ const sanitizeMiddleware = (req, res, next) => {
 
 
 const sanitizeValue = (key, value) => {
-    // remove any $ or . characters from the value
+    // remove any $ characters from the value
     if (typeof value !== 'string' || key === 'email') {
         return value;
     }
-    value = value.replace(/\./g, '');
     value = value.replace(/\$/g, '');
     return value;
 }
