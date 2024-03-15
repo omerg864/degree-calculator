@@ -35,8 +35,8 @@ export const calculateSemesterAvg = (courses) => {
             let grade = calculateCourse(courses[i].assignments);
             if(grade >= 60) {
                 completedCourses++;
+                total += courses[i].points * grade;
             }
-            total += courses[i].points * grade;
         } else {
             if (courses[i].grade) {
                 sumPoints += courses[i].points;
