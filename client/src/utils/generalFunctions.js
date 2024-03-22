@@ -38,11 +38,9 @@ export const calculateSemesterAvg = (courses) => {
                 total += courses[i].points * grade;
             }
         } else {
-            if (courses[i].grade) {
+            if (courses[i].grade && courses[i].grade >= 60) {
                 sumPoints += courses[i].points;
-                if(courses[i].grade >= 60) {
-                    completedCourses++;
-                }
+                completedCourses++;
                 total += courses[i].points * courses[i].grade;
             }
         }
