@@ -62,7 +62,7 @@ function Login({ setIsAuthenticated, isAuthenticated}) {
           <form style={{textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '15px'}} onSubmit={handleSubmit} >
               <TextField fullWidth id="email" value={userData.email} label={t('email')} name='email' type="email" required variant="outlined" onChange={handleChange} />
               <PasswordInput name="password" value={userData.password} label={t('password')} id="password" onChange={handleChange} />
-            {/*<Link to="/password/reset/email">forgot password?</Link>*/}
+            <Link to="/password/reset/email">{t('forgot')}</Link>
             <Link to="/register">{t('noAccount')}</Link>
             <div>
             <Button id='btn-primary' variant="contained" color="primary" type="submit" >{t('login')}</Button>

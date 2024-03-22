@@ -113,5 +113,19 @@
         "password": "סיסמה",
         "forgot": "שכחתי סיסמה",
         "noAccount": "אין לך חשבון?"
+    },
+    "PasswordResetEmail": {
+        "reset": "איפוס סיסמה",
+        "email": "אימייל",
+        "resetSuccess": "אימייל לאיפוס סיסמה נשלח בהצלחה",
+        "resetFail": "אימייל לאיפוס סיסמה לא נשלח"
+    },
+    "PasswordResetToken": {
+        "reset": "איפוס סיסמה",
+        "newPassword": "סיסמה חדשה",
+        "confirmPassword": "אימות סיסמה",
+        "passwordInvalid": "סיסמה לא תקינה",
+        "passwordsNotMatch": "הסיסמאות לא תואמות",
+        "passwordChanged": "הסיסמה שונתה בהצלחה"
     }
 }

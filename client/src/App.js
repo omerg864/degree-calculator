@@ -12,6 +12,8 @@ import 'react-circular-progressbar/dist/styles.css';
 import Verify from './pages/Verify.jsx';
 import Profile from './pages/Profile.jsx'
 import PasswordChange from './pages/PasswordChange';
+import PasswordResetEmail from './pages/PasswordResetEmail.jsx';
+import PasswordResetToken from './pages/PasswordResetToken.jsx';
 import i18next from 'i18next';
 
 function App() {
@@ -36,6 +38,8 @@ function App() {
         <Route path="/verify/:id" element={<Verify/>} />
         <Route path="/profile" element={<Profile isAuthenticated={isAuthenticated}/>} />
         <Route path="/password/change" element={<PasswordChange isAuthenticated={isAuthenticated}/>} />
+        <Route path="/password/reset/email" element={<PasswordResetEmail/>} />
+        <Route path="/password/reset/:token" element={<PasswordResetToken/>} />
       </Routes>
     </Router>
     </>

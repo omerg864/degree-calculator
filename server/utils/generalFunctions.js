@@ -1,6 +1,6 @@
 import { createTransport } from 'nodemailer';
 
-export const sendEmail = async (reciever, subject, text) => {
+export const sendEmail = async (receiver, subject, text) => {
     var transporter = createTransport({
         service: process.env.EMAIL_SERVICE,
         auth: {
@@ -11,18 +11,19 @@ export const sendEmail = async (reciever, subject, text) => {
     
     var mailOptions = {
         from: process.env.EMAIL_ADDRESS,
-        to: reciever,
+        to: receiver,
         subject: subject,
         text: text
     };
-    
-    transporter.sendMail(mailOptions, function(error, info){
+    let success = false;
+    await transporter.sendMail(mailOptions, function(error, info){
         if (error) {
-        console.log(error);
-        return false;
+            console.log(error);
         } else {
-        console.log('Email sent: ' + info.response);
-        return true;
+            console.log('Email sent: ' + info.response);
+            console.log(info);
+            success = true;
         }
     });
+    return success;
 }

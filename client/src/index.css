@@ -40,6 +40,7 @@ code {
   padding: 10px;
   width: 60%;
   box-sizing: border-box;
+  margin: 0 5px;
 }
 
 #root {
@@ -123,6 +124,11 @@ main {
   justify-content: space-between;
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+}
+
 .row {
   display: flex;
   gap: 5px;
@@ -175,6 +181,6 @@ main {
 
 @media screen and (max-width: 600px) {
   .box-container {
-    width: 100%;
+    width: 96%;
   }
 }

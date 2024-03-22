@@ -113,5 +113,19 @@
         "password": "Password",
         "forgot": "Forgot Password?",
         "noAccount": "Don't have an account?"
+    },
+    "PasswordResetEmail": {
+        "reset": "Reset Password",
+        "email": "Email",
+        "resetSuccess": "Password Reset Email Sent",
+        "resetFail": "Password Reset Failed"
+    },
+    "PasswordResetToken": {
+        "reset": "Reset Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm Password",
+        "passwordInvalid": "Password does not match the rules",
+        "passwordsNotMatch": "Passwords do not match",
+        "passwordChanged": "Password Changed Successfully"
     }
 }
