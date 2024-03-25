@@ -14,7 +14,6 @@ function PasswordChange({ isAuthenticated}) {
   const [formData, setFormData] = useState({ password: '', confirmPassword: "" });
   const { t } = useTranslation('translation', { keyPrefix: 'PasswordChange' });
   const navigate = useNavigate();
-  const cookies = new Cookies();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -30,8 +29,7 @@ function PasswordChange({ isAuthenticated}) {
     setIsLoading(true);
     try {
       const response = await fetch(`/api/user/password`, { headers: {
-        "Content-type": "application/json",
-        "authorization": `Bearer ${cookies.get('userToken')}`
+        "Content-type": "application/json"
       } ,method: 'PUT', body: JSON.stringify({password: formData.password})})
       const data = await response.json();
       if (!data.success) {

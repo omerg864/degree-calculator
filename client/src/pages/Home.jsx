@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Cookies from 'universal-cookie';
 import Spinner from '../components/Spinner';
 import { calculateAverages } from '../utils/generalFunctions';
 import { SpeedDial, SpeedDialIcon, SpeedDialAction } from '@mui/material';
@@ -34,7 +33,6 @@ function Home({ isAuthenticated, setTitle}) {
     });
     const [nav, setNav] = useState(false);
     const [tab, setTab] = useState("main");
-    const cookies = new Cookies();
 
     useEffect(()=> {
         if(!isAuthenticated) {
@@ -64,7 +62,6 @@ function Home({ isAuthenticated, setTitle}) {
         try {
             const response = await fetch(`/api/course/`, { headers: {
                 "Content-type": "application/json",
-                "authorization": `Bearer ${cookies.get('userToken')}`
             } ,method: 'POST', body: JSON.stringify({...form, semester, year})});
             const data = await response.json();
             if (!data.success) {
@@ -117,8 +114,7 @@ function Home({ isAuthenticated, setTitle}) {
         setIsLoading(true);
         try {
             const response = await fetch(`/api/course/${id}`, { headers: {
-                "Content-type": "application/json",
-                "authorization": `Bearer ${cookies.get('userToken')}`
+                "Content-type": "application/json"
             } ,method: 'PUT', body: JSON.stringify(form) })
             const data = await response.json();
             if (!data.success) {
@@ -151,8 +147,7 @@ function Home({ isAuthenticated, setTitle}) {
         setIsLoading(true);
         try {
             const response = await fetch(`/api/course/${id}`, { headers: {
-                "Content-type": "application/json",
-                "authorization": `Bearer ${cookies.get('userToken')}`
+                "Content-type": "application/json"
             } ,method: 'DELETE'})
             const data = await response.json();
             if (!data.success) {
@@ -178,8 +173,7 @@ function Home({ isAuthenticated, setTitle}) {
         setIsLoading(true);
         try {
             const response = await fetch(`/api/course/`, { headers: {
-                "Content-type": "application/json",
-                "authorization": `Bearer ${cookies.get('userToken')}`
+                "Content-type": "application/json"
             } ,method: 'GET'})
             const data = await response.json();
             if (!data.success) {
