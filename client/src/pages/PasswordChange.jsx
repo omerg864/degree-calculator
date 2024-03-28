@@ -68,7 +68,7 @@ function PasswordChange({ isAuthenticated}) {
     <main>
       <h1>{t("passwordChange")}</h1>
         <Box className='box-container' component={Paper} >
-            <form className='box-container' style={{textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '15px'}} onSubmit={handleSubmit}>
+            <form className='box-container' style={{textAlign: 'center', width: '100%', display: 'flex', flexDirection: 'column', gap: '15px'}} onSubmit={handleSubmit}>
               <PasswordInput id="password"  value={formData.password} label={t('newPassword')} name="password" onChange={handleChange}/>
               <PasswordRules />
               <PasswordInput id="confirmPassword"  value={formData.confirmPassword} label={t('confirmPassword')} name="confirmPassword" onChange={handleChange}/>
