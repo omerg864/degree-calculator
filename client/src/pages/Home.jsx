@@ -60,7 +60,7 @@ function Home({ isAuthenticated, setTitle}) {
     const createCourse = async (form, setExpanded, setNewCourse) => {
         setIsLoading(true);
         try {
-            const response = await fetch(`/api/course/`, { headers: {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/`, { headers: {
                 "Content-type": "application/json",
             } ,method: 'POST', body: JSON.stringify({...form, semester, year})});
             const data = await response.json();
@@ -113,7 +113,7 @@ function Home({ isAuthenticated, setTitle}) {
         setExpanded(false);
         setIsLoading(true);
         try {
-            const response = await fetch(`/api/course/${id}`, { headers: {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/${id}`, { headers: {
                 "Content-type": "application/json"
             } ,method: 'PUT', body: JSON.stringify(form) })
             const data = await response.json();
@@ -146,7 +146,7 @@ function Home({ isAuthenticated, setTitle}) {
         setExpanded(false);
         setIsLoading(true);
         try {
-            const response = await fetch(`/api/course/${id}`, { headers: {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/${id}`, { headers: {
                 "Content-type": "application/json"
             } ,method: 'DELETE'})
             const data = await response.json();
@@ -172,7 +172,7 @@ function Home({ isAuthenticated, setTitle}) {
     const getCourses = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch(`/api/course/`, { headers: {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/`, { headers: {
                 "Content-type": "application/json"
             } ,method: 'GET'})
             const data = await response.json();

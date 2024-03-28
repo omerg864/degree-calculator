@@ -28,7 +28,7 @@ function PasswordChange({ isAuthenticated}) {
     }
     setIsLoading(true);
     try {
-      const response = await fetch(`/api/user/password`, { headers: {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/password`, { headers: {
         "Content-type": "application/json"
       } ,method: 'PUT', body: JSON.stringify({password: formData.password})})
       const data = await response.json();

@@ -31,7 +31,7 @@ function Login({ setIsAuthenticated, isAuthenticated}) {
         e.preventDefault();
         setIsLoading(true);
         try {
-          const response = await fetch(`/api/user/login`, { headers: {"Content-type": "application/json"} ,method: 'POST', body: JSON.stringify(userData)})
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/login`, { headers: {"Content-type": "application/json"} ,method: 'POST', body: JSON.stringify(userData)})
         const data = await response.json();
         if (!data.success) {          
             toast.error(data.message);

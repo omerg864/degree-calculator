@@ -21,7 +21,7 @@ function PasswordResetEmail() {
         }
         setIsLoading(true);
         try {
-            const response = await fetch(`/api/user/reset-password`, { headers: {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/reset-password`, { headers: {
                 "Content-type": "application/json",
             } ,method: 'POST', body: JSON.stringify(formData)})
             const data = await response.json();

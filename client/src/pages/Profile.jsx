@@ -28,7 +28,7 @@ function Profile({ isAuthenticated}) {
   const getUser = async () => {
     setIsLoading(true);
     try {
-        const response = await fetch(`/api/user/`, { headers: {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/`, { headers: {
             "Content-type": "application/json"
         } ,method: 'GET'})
         const data = await response.json();
@@ -46,7 +46,7 @@ function Profile({ isAuthenticated}) {
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
-        const response = await fetch(`/api/user/`, { headers: {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/`, { headers: {
             "Content-type": "application/json"
         } ,method: 'PUT', body: JSON.stringify(user)})
         const data = await response.json();

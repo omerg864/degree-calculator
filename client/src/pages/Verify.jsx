@@ -17,7 +17,7 @@ function Verify() {
     const verify = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch(`/api/user/verify/${params.id}`, { headers: {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/verify/${params.id}`, { headers: {
                 "Content-type": "application/json"
             } ,method: 'GET'})
             const data = await response.json();
