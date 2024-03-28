@@ -173,8 +173,8 @@ function Home({ isAuthenticated, setTitle}) {
         setIsLoading(true);
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/`, { headers: {
-                "Content-type": "application/json"
-            }, credentials: 'include' ,method: 'GET'})
+                "Content-type": "application/json",
+            }, credentials: 'same-origin' ,method: 'GET'})
             const data = await response.json();
             if (!data.success) {
                 toast.error(data.message);
