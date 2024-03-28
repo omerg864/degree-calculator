@@ -40,7 +40,8 @@ function Profile({ isAuthenticated}) {
         }
         setIsLoading(false);
     } catch (err) {
-        toast.error('Internal Server Error')
+        toast.error('Internal Server Error');
+        console.log(err);
     }
   }
 
@@ -63,7 +64,8 @@ function Profile({ isAuthenticated}) {
         }
         setIsLoading(false);
     } catch (err) {
-        toast.error('Internal Server Error')
+        toast.error('Internal Server Error');
+        console.log(err);
     }
   }
 

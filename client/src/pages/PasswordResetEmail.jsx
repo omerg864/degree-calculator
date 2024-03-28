@@ -32,7 +32,8 @@ function PasswordResetEmail() {
                 navigate('/');
             }
         } catch (err) {
-            toast.error('Internal Server Error')
+            toast.error('Internal Server Error');
+            console.log(err);
         }
         setIsLoading(false);
     }

@@ -107,7 +107,8 @@ function Home({ isAuthenticated, setTitle}) {
             }
             setIsLoading(false);
         } catch (err) {
-            toast.error('Internal Server Error')
+            toast.error('Internal Server Error');
+            console.log(err);
         }
     }
 
@@ -142,7 +143,8 @@ function Home({ isAuthenticated, setTitle}) {
             }
             setIsLoading(false);
         } catch (err) {
-            toast.error('Internal Server Error')
+            toast.error('Internal Server Error');
+            console.log(err);
         }
     }
 
@@ -172,7 +174,8 @@ function Home({ isAuthenticated, setTitle}) {
             }
             setIsLoading(false);
         } catch (err) {
-            toast.error('Internal Server Error')
+            toast.error('Internal Server Error');
+            console.log(err);
         }
     }
 
@@ -199,7 +202,8 @@ function Home({ isAuthenticated, setTitle}) {
             }
             setIsLoading(false);
         } catch (err) {
-            toast.error('Internal Server Error')
+            toast.error('Internal Server Error');
+            console.log(err);
         }
     }
 
