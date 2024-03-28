@@ -46,20 +46,23 @@ registerRoute(
   createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html')
 );
 
-
 // Check if the request is in the cache, if not, fetch it from the network
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return fetch(event.request).then((response) => {
-        return caches.open('v1').then((cache) => {
-          cache.put(event.request, response.clone());
-          return response;
+try {
+  self.addEventListener('fetch', (event) => {
+    event.respondWith(
+      caches.match(event.request).then((response) => {
+        return fetch(event.request).then((response) => {
+          return caches.open('v1').then((cache) => {
+            cache.put(event.request, response.clone());
+            return response;
+          });
         });
-      });
-    })
-  );
-});
+      })
+    );
+  });
+} catch (error) {
+  console.log(error);
+}
 
 
 
