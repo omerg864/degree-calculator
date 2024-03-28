@@ -22,7 +22,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [title, setTitle] = useState();
 
-  if (cookies.get('userToken') && !isAuthenticated) {
+  if (cookies.get('userToken', { domain: 'degree-calculator-api.vercel.app'}) && !isAuthenticated) {
     setIsAuthenticated(true);
   }
 
