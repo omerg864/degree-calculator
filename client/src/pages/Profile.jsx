@@ -29,6 +29,7 @@ function Profile({ isAuthenticated}) {
     setIsLoading(true);
     try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/`, { headers: {
+            authorization: `Bearer ${cookies.getItem('userToken')}`,
             "Content-type": "application/json"
         } ,method: 'GET'})
         const data = await response.json();
@@ -47,6 +48,7 @@ function Profile({ isAuthenticated}) {
     setIsLoading(true);
     try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/`, { headers: {
+            authorization: `Bearer ${cookies.getItem('userToken')}`,
             "Content-type": "application/json"
         } ,method: 'PUT', body: JSON.stringify(user)})
         const data = await response.json();

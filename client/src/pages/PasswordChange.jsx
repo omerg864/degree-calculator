@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { password_regex } from '../utils/consts';
 import Spinner from '../components/Spinner';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 function PasswordChange({ isAuthenticated}) {
 
@@ -14,6 +15,7 @@ function PasswordChange({ isAuthenticated}) {
   const { t } = useTranslation('translation', { keyPrefix: 'PasswordChange' });
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const cookie = new Cookies();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +30,7 @@ function PasswordChange({ isAuthenticated}) {
     setIsLoading(true);
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/password`, { headers: {
+        authorization: `Bearer ${cookie.getItem('userToken')}`,
         "Content-type": "application/json"
       } ,method: 'PUT', body: JSON.stringify({password: formData.password})})
       const data = await response.json();

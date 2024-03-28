@@ -13,6 +13,7 @@ import Main from '../components/Main';
 import HomeIcon from '@mui/icons-material/Home';
 import Simulation from '../components/Simulation';
 import Summary from '../components/Summary';
+import Cookies from 'universal-cookie';
 
 
 function Home({ isAuthenticated, setTitle}) {
@@ -33,6 +34,7 @@ function Home({ isAuthenticated, setTitle}) {
     });
     const [nav, setNav] = useState(false);
     const [tab, setTab] = useState("main");
+    const cookie = new Cookies();
 
     useEffect(()=> {
         if(!isAuthenticated) {
@@ -61,7 +63,7 @@ function Home({ isAuthenticated, setTitle}) {
         setIsLoading(true);
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/`, { headers: {
-                withCredentials: true,
+                authorization: `Bearer ${cookie.getItem('userToken')}`,
                 "Content-type": "application/json",
             }, credentials: 'include' ,method: 'POST', body: JSON.stringify({...form, semester, year})});
             const data = await response.json();
@@ -115,6 +117,7 @@ function Home({ isAuthenticated, setTitle}) {
         setIsLoading(true);
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/${id}`, { headers: {
+                authorization: `Bearer ${cookie.getItem('userToken')}`,
                 "Content-type": "application/json",
                 withCredentials: true,
             }, credentials: 'include' ,method: 'PUT', body: JSON.stringify(form) })
@@ -149,6 +152,7 @@ function Home({ isAuthenticated, setTitle}) {
         setIsLoading(true);
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/${id}`, { headers: {
+                authorization: `Bearer ${cookie.getItem('userToken')}`,
                 "Content-type": "application/json",
                 withCredentials: true,
             }, credentials: 'include' ,method: 'DELETE'})
@@ -176,6 +180,7 @@ function Home({ isAuthenticated, setTitle}) {
         setIsLoading(true);
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/`, { headers: {
+                authorization: `Bearer ${cookie.getItem('userToken')}`,
                 "Content-type": "application/json",
                 withCredentials: true
             }, credentials: 'include' ,method: 'GET'})

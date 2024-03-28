@@ -40,8 +40,8 @@ function Login({ setIsAuthenticated, isAuthenticated}) {
               toast.info(data.specialMessage);
             }
             let date30 = addDays(new Date(), 30);
-            cookies.set('userToken', data.user.token, { sameSite: 'none', secure: true, expires: date30 });
-            cookies.set('user', JSON.stringify(data.user), { sameSite: 'none', secure: true, expires: date30 });
+            cookies.set('userToken', data.user.token, { path: '/', secure: true, expires: date30 });
+            cookies.set('user', JSON.stringify(data.user), { path: '/', secure: true, expires: date30 });
             setIsAuthenticated(true);
             navigate('/');
         }
