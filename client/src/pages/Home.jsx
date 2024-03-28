@@ -62,7 +62,7 @@ function Home({ isAuthenticated, setTitle}) {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/`, { headers: {
                 "Content-type": "application/json",
-            } ,method: 'POST', body: JSON.stringify({...form, semester, year})});
+            }, credentials: 'include' ,method: 'POST', body: JSON.stringify({...form, semester, year})});
             const data = await response.json();
             if (!data.success) {
                 toast.error(data.message);
@@ -115,7 +115,7 @@ function Home({ isAuthenticated, setTitle}) {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/${id}`, { headers: {
                 "Content-type": "application/json"
-            } ,method: 'PUT', body: JSON.stringify(form) })
+            }, credentials: 'include' ,method: 'PUT', body: JSON.stringify(form) })
             const data = await response.json();
             if (!data.success) {
                 toast.error(data.message);
@@ -148,7 +148,7 @@ function Home({ isAuthenticated, setTitle}) {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/${id}`, { headers: {
                 "Content-type": "application/json"
-            } ,method: 'DELETE'})
+            }, credentials: 'include' ,method: 'DELETE'})
             const data = await response.json();
             if (!data.success) {
                 toast.error(data.message);
@@ -174,7 +174,7 @@ function Home({ isAuthenticated, setTitle}) {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/`, { headers: {
                 "Content-type": "application/json"
-            }, credentials: "same-origin" ,method: 'GET'})
+            }, credentials: 'include' ,method: 'GET'})
             const data = await response.json();
             if (!data.success) {
                 toast.error(data.message);

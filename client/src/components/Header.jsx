@@ -28,8 +28,8 @@ function Header({isAuthenticated, setIsAuthenticated, title, setTitle}) {
     if(isAuthenticated) {
         // logout
         setIsAuthenticated(false);
-        cookies.remove('userToken', { domain: process.env.REACT_APP_API_URL || "/" });
-        cookies.remove('user', { domain: process.env.REACT_APP_API_URL || "/" });
+        cookies.remove('userToken');
+        cookies.remove('user');
         setTitle(null);
     }
     navigate('/login');

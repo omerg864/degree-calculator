@@ -40,8 +40,8 @@ function Login({ setIsAuthenticated, isAuthenticated}) {
               toast.info(data.specialMessage);
             }
             let date30 = addDays(new Date(), 30);
-            cookies.set('userToken', data.user.token, { domain: process.env.REACT_APP_API_URL || "/" , expires: date30 });
-            cookies.set('user', JSON.stringify(data.user), { domain: process.env.REACT_APP_API_URL || "/" , expires: date30 });
+            cookies.set('userToken', data.user.token, { path: '/', expires: date30 });
+            cookies.set('user', JSON.stringify(data.user), { path: '/', expires: date30 });
             setIsAuthenticated(true);
             navigate('/');
         }
