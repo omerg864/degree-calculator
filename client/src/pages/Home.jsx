@@ -174,7 +174,7 @@ function Home({ isAuthenticated, setTitle}) {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/`, { headers: {
                 "Content-type": "application/json"
-            } ,method: 'GET'})
+            }, credentials: "same-origin" ,method: 'GET'})
             const data = await response.json();
             if (!data.success) {
                 toast.error(data.message);
