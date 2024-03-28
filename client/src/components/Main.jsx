@@ -200,14 +200,14 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
                                     </IconButton> : <></>}
                     {edit === c._id ? <div><FormControlLabel sx={{margin: 0}} control={<Checkbox onChange={changeCheckBox} name="binaryPass" checked={form.binaryPass} />} label={t("binaryPass")} /></div> : <></>}
                     {simulation ? <></> : edit === c._id ? <div className='space' style={{padding: "1rem 1rem"}}>
-                        <Button variant="outlined" color="error" onClick={() => deleteCourse(c._id, setEdit, setExpanded)}>
+                        <Button aria-label="delete Course" variant="outlined" color="error" onClick={() => deleteCourse(c._id, setEdit, setExpanded)}>
                             {t("delete")}
                         </Button>
-                        <Button variant="contained" color="primary" id='btn-primary' onClick={() => updateCourse(c._id, form, setEdit, setExpanded)}>
+                        <Button aria-label="update Course" variant="contained" color="primary" id='btn-primary' onClick={() => updateCourse(c._id, form, setEdit, setExpanded)}>
                         {t("save")}
                         </Button>
                     </div> : <div className='edit-container'>
-                            <Button variant="contained" color="primary" id='btn-primary' onClick={() => {editCourse(c)}}>
+                            <Button aria-label="edit Course" variant="contained" color="primary" id='btn-primary' onClick={() => {editCourse(c)}}>
                             {t("edit")}
                             </Button>
                         </div>}
@@ -238,17 +238,17 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
                         <AddIcon sx={{color: "green"}}/>
                     </IconButton>
                     <div className='space' style={{padding: "1rem 1rem"}}>
-                        <Button variant="contained" color="error" onClick={removeNewCourse}>
+                        <Button aria-label="remove new course" variant="contained" color="error" onClick={removeNewCourse}>
                         {t("delete")}
                         </Button>
-                        <Button variant="contained" color="primary" id='btn-primary' onClick={() => createCourse(form, setExpanded, setNewCourse)}>
+                        <Button aria-label="create Course" variant="contained" color="primary" id='btn-primary' onClick={() => createCourse(form, setExpanded, setNewCourse)}>
                         {t("save")}
                         </Button>
                     </div>
                     </AccordionDetails>
                 </Accordion>
     </> : <></>}
-    <Button sx={{width: "fit-content", margin: "0.7rem 0"}} onClick={openNewCourse}>
+    <Button aria-label="open new Course" sx={{width: "fit-content", margin: "0.7rem 0"}} onClick={openNewCourse}>
         {t("newCourse")}
     </Button>
     </div>

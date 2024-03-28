@@ -78,7 +78,7 @@ function Register({ isAuthenticated}) {
             <PasswordInput id="password"  value={formData.password} label={t('password')} name="password" onChange={handleChange}/>
             <PasswordRules />
             <PasswordInput id="confirmPassword"  value={formData.confirmPassword} label={t('confirmPassword')} name="confirmPassword" onChange={handleChange}/>
-            <Button id='btn-primary' variant="contained" color="primary" type="submit" >{t('register')}</Button>
+            <Button aria-label="register" id='btn-primary' variant="contained" color="primary" type="submit" >{t('register')}</Button>
             </form>
         </Box>
     </main>

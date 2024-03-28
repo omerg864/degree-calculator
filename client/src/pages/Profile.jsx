@@ -109,8 +109,8 @@ function Profile({ isAuthenticated}) {
               <TextField fullWidth id="degree" value={user.degree} label={t('degree')} name='degree' required variant="outlined" onChange={handleChange} />
               <TextField fullWidth id="school" value={user.school} label={t('school')} name='school' required variant="outlined" onChange={handleChange} />
               <div className='space'>
-                <Button variant="contained" color="primary" onClick={gotoPasswordChange} >{t("changePassword")}</Button>
-                <Button id='btn-primary' variant="contained" color="primary" type="submit" >{t("save")}</Button>
+                <Button aria-label="change password" variant="contained" color="primary" onClick={gotoPasswordChange} >{t("changePassword")}</Button>
+                <Button aria-label="save" id='btn-primary' variant="contained" color="primary" type="submit" >{t("save")}</Button>
               </div>
             </form>
         </Box>

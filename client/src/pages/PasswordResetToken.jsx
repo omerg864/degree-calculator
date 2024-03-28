@@ -62,7 +62,7 @@ function PasswordResetToken() {
               <PasswordRules />
               <PasswordInput id="confirmPassword"  value={formData.confirmPassword} label={t('confirmPassword')} name="confirmPassword" onChange={handleChange}/>
               <div className='center'>
-                <Button id='btn-primary' variant="contained" color="primary" type="submit" >{t("reset")}</Button>
+                <Button aria-label="reset" id='btn-primary' variant="contained" color="primary" type="submit" >{t("reset")}</Button>
               </div>
             </form>
         </Box>

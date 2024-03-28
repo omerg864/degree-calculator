@@ -66,7 +66,7 @@ function Login({ setIsAuthenticated, isAuthenticated}) {
             <Link to="/password/reset/email">{t('forgot')}</Link>
             <Link to="/register">{t('noAccount')}</Link>
             <div>
-            <Button id='btn-primary' variant="contained" color="primary" type="submit" >{t('login')}</Button>
+            <Button aria-label="login" id='btn-primary' variant="contained" color="primary" type="submit" >{t('login')}</Button>
             </div>
           </form>
       </Box>

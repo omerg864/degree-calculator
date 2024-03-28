@@ -73,8 +73,8 @@ function PasswordChange({ isAuthenticated}) {
               <PasswordRules />
               <PasswordInput id="confirmPassword"  value={formData.confirmPassword} label={t('confirmPassword')} name="confirmPassword" onChange={handleChange}/>
               <div className='space'>
-              <Button variant="outlined" color="error" onClick={gotoProfile} >{t("cancel")}</Button>
-                <Button id='btn-primary' variant="contained" color="primary" type="submit" >{t("save")}</Button>
+              <Button aria-label="cancel" variant="outlined" color="error" onClick={gotoProfile} >{t("cancel")}</Button>
+                <Button aria-label="save" id='btn-primary' variant="contained" color="primary" type="submit" >{t("save")}</Button>
               </div>
             </form>
         </Box>

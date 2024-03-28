@@ -53,7 +53,7 @@ function PasswordResetEmail() {
             <form className='box-container' style={{textAlign: 'center', width: '100%', display: 'flex', justifyContent: 'center', flexDirection: 'column', gap: '15px'}} onSubmit={handleSubmit}>
                 <TextField fullWidth id="email" value={formData.email} label={t('email')} name='email' type="email" required variant="outlined" onChange={handleChange} />
                 <div className='center'>
-                    <Button id='btn-primary' variant="contained" color="primary" type="submit" >{t("reset")}</Button>
+                    <Button aria-label="reset" id='btn-primary' variant="contained" color="primary" type="submit" >{t("reset")}</Button>
                 </div>
           </form>
       </Box>
