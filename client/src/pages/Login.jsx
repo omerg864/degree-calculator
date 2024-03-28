@@ -31,7 +31,7 @@ function Login({ setIsAuthenticated, isAuthenticated}) {
         e.preventDefault();
         setIsLoading(true);
         try {
-          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/login`, { headers: {"Content-type": "application/json"} ,method: 'POST', body: JSON.stringify(userData)})
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/login`, { headers: {"Content-type": "application/json"}, credentials: 'include' ,method: 'POST', body: JSON.stringify(userData)})
         const data = await response.json();
         if (!data.success) {          
             toast.error(data.message);
@@ -40,8 +40,8 @@ function Login({ setIsAuthenticated, isAuthenticated}) {
               toast.info(data.specialMessage);
             }
             let date30 = addDays(new Date(), 30);
-            cookies.set('userToken', data.user.token, { path: '/', domain: process.env.REACT_APP_API_URL, expires: date30 });
-            cookies.set('user', JSON.stringify(data.user), { path: '/', domain: process.env.REACT_APP_API_URL, expires: date30 });
+            cookies.set('userToken', data.user.token, { path: '/', expires: date30 });
+            cookies.set('user', JSON.stringify(data.user), { path: '/', expires: date30 });
             setIsAuthenticated(true);
             navigate('/');
         }
