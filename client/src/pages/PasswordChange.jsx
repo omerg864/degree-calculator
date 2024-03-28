@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { password_regex } from '../utils/consts';
 import Spinner from '../components/Spinner';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 
 function PasswordChange({ isAuthenticated}) {
 
