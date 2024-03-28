@@ -22,7 +22,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [title, setTitle] = useState();
 
-  if (cookies.get('userToken', { path: process.env.REACT_APP_API_URL || "/" }) && !isAuthenticated) {
+  if (cookies.get('userToken', { domain: process.env.REACT_APP_API_URL || "/" }) && !isAuthenticated) {
     setIsAuthenticated(true);
   }
 

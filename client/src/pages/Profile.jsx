@@ -56,7 +56,7 @@ function Profile({ isAuthenticated}) {
             if(data.specialMessage) {
               toast.info(data.specialMessage);
             }
-            cookies.set('user', data.user, { path: process.env.REACT_APP_API_URL || "/" });
+            cookies.set('user', data.user, { domain: process.env.REACT_APP_API_URL || "/" });
             toast.success(t('userUpdated'));
         }
         setIsLoading(false);
