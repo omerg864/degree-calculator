@@ -63,7 +63,7 @@ function Home({ isAuthenticated, setTitle}) {
         setIsLoading(true);
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/`, { headers: {
-                authorization: `Bearer ${cookie.getItem('userToken')}`,
+                authorization: `Bearer ${cookie.get('userToken')}`,
                 "Content-type": "application/json",
             }, credentials: 'include' ,method: 'POST', body: JSON.stringify({...form, semester, year})});
             const data = await response.json();
@@ -118,7 +118,7 @@ function Home({ isAuthenticated, setTitle}) {
         setIsLoading(true);
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/${id}`, { headers: {
-                authorization: `Bearer ${cookie.getItem('userToken')}`,
+                authorization: `Bearer ${cookie.get('userToken')}`,
                 "Content-type": "application/json",
                 withCredentials: true,
             }, credentials: 'include' ,method: 'PUT', body: JSON.stringify(form) })
@@ -154,7 +154,7 @@ function Home({ isAuthenticated, setTitle}) {
         setIsLoading(true);
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/${id}`, { headers: {
-                authorization: `Bearer ${cookie.getItem('userToken')}`,
+                authorization: `Bearer ${cookie.get('userToken')}`,
                 "Content-type": "application/json",
                 withCredentials: true,
             }, credentials: 'include' ,method: 'DELETE'})
@@ -183,7 +183,7 @@ function Home({ isAuthenticated, setTitle}) {
         setIsLoading(true);
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/`, { headers: {
-                authorization: `Bearer ${cookie.getItem('userToken')}`,
+                authorization: `Bearer ${cookie.get('userToken')}`,
                 "Content-type": "application/json",
                 withCredentials: true
             }, credentials: 'include' ,method: 'GET'})

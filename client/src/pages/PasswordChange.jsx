@@ -30,7 +30,7 @@ function PasswordChange({ isAuthenticated}) {
     setIsLoading(true);
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/password`, { headers: {
-        authorization: `Bearer ${cookie.getItem('userToken')}`,
+        authorization: `Bearer ${cookie.get('userToken')}`,
         "Content-type": "application/json"
       } ,method: 'PUT', body: JSON.stringify({password: formData.password})})
       const data = await response.json();
