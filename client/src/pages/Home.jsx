@@ -61,6 +61,7 @@ function Home({ isAuthenticated, setTitle}) {
         setIsLoading(true);
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/`, { headers: {
+                withCredentials: true,
                 "Content-type": "application/json",
             }, credentials: 'include' ,method: 'POST', body: JSON.stringify({...form, semester, year})});
             const data = await response.json();
@@ -114,7 +115,8 @@ function Home({ isAuthenticated, setTitle}) {
         setIsLoading(true);
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/${id}`, { headers: {
-                "Content-type": "application/json"
+                "Content-type": "application/json",
+                withCredentials: true,
             }, credentials: 'include' ,method: 'PUT', body: JSON.stringify(form) })
             const data = await response.json();
             if (!data.success) {
@@ -147,7 +149,8 @@ function Home({ isAuthenticated, setTitle}) {
         setIsLoading(true);
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/${id}`, { headers: {
-                "Content-type": "application/json"
+                "Content-type": "application/json",
+                withCredentials: true,
             }, credentials: 'include' ,method: 'DELETE'})
             const data = await response.json();
             if (!data.success) {
@@ -174,6 +177,7 @@ function Home({ isAuthenticated, setTitle}) {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course/`, { headers: {
                 "Content-type": "application/json",
+                withCredentials: true
             }, credentials: 'include' ,method: 'GET'})
             const data = await response.json();
             if (!data.success) {
