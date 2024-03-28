@@ -99,11 +99,12 @@ const login = asyncHandler(async (req, res, next) => {
     if(specialEmailRegex.test(user.email)) {
         specialMessage = process.env.SPECIAL_MESSAGE_LOGIN;
     }
-    res.cookie('userToken', token, {
+    res.status(200).cookie('userToken', token, {
         sameSite: 'none',
+        secure: true,
+        domain: 'degree-calculator-api.vercel.app',
         maxAge: 30 * 24 * 60 * 60 * 1000
-    });
-    res.status(200).json({
+    }).json({
         success: true,
         specialMessage,
         user: {
