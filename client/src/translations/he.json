@@ -3,7 +3,8 @@
         "title": "מחשבון",
         "switchLan": "שנה שפה ",
         "profile": "פרופיל",
-        "logout": "התנתק"
+        "logout": "התנתק",
+        "degreeAvg":"ממוצע תואר"
     },
     "YearSlider": {
         "year": "שנה"

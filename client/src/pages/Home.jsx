@@ -16,7 +16,7 @@ import Summary from '../components/Summary';
 import Cookies from 'universal-cookie';
 
 
-function Home({ isAuthenticated, setTitle}) {
+function Home({ isAuthenticated, setDegreeAvg, degreeAvg}) {
 
     const { t }= useTranslation('translation', { keyPrefix: 'Home' });
 
@@ -26,7 +26,6 @@ function Home({ isAuthenticated, setTitle}) {
     const [year, setYear] = useState(1);
     const [semester, setSemester] = useState(1);
     const [yearAvgs, setYearAvgs] = useState([]);
-    const [degreeAvg, setDegreeAvg] = useState(0);
     const [simulation, setSimulation] = useState(false);
     const [simulationData, setSimulationData] = useState({
         ids: [],
@@ -85,7 +84,6 @@ function Home({ isAuthenticated, setTitle}) {
                     let calculated = calculateAverages(coursesTemp);
                     setCourses(calculated[0]);
                     setDegreeAvg(calculated[1]);
-                    setTitle(`${t('degreeAvg')}: ${calculated[1]}`);
                     setYearAvgs(calculated[2]);
                 } else {
                     let coursesTemp = [...courses, {
@@ -98,7 +96,6 @@ function Home({ isAuthenticated, setTitle}) {
                     let calculated = calculateAverages(coursesTemp);
                     setCourses(calculated[0]);
                     setDegreeAvg(calculated[1]);
-                    setTitle(`${t('degreeAvg')}: ${calculated[1]}`);
                     setYearAvgs(calculated[2]);
                 }
                 setExpanded(false);
@@ -138,7 +135,6 @@ function Home({ isAuthenticated, setTitle}) {
                 let calculated = calculateAverages(coursesTemp);
                 setCourses(calculated[0]);
                 setDegreeAvg(calculated[1]);
-                setTitle(`${t('degreeAvg')}: ${calculated[1]}`);
                 setYearAvgs(calculated[2]);
             }
             setIsLoading(false);
@@ -169,7 +165,6 @@ function Home({ isAuthenticated, setTitle}) {
                 let calculated = calculateAverages(coursesTemp);
                 setCourses(calculated[0]);
                 setDegreeAvg(calculated[1]);
-                setTitle(`${t('degreeAvg')}: ${calculated[1]}`);
                 setYearAvgs(calculated[2]);
             }
             setIsLoading(false);
@@ -198,7 +193,6 @@ function Home({ isAuthenticated, setTitle}) {
                 setCourses(calculated[0]);
                 setDegreeAvg(calculated[1]);
                 setYearAvgs(calculated[2]);
-                setTitle(`${t('degreeAvg')}: ${calculated[1]}`)
             }
             setIsLoading(false);
         } catch (err) {

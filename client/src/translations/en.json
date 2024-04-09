@@ -3,7 +3,8 @@
         "title" : "Calculator",
         "switchLan": "Switch to ",
         "profile": "Profile",
-        "logout": "Logout"
+        "logout": "Logout",
+        "degreeAvg":"Degree Average"
     },
     "YearSlider": {
         "year": "Year"

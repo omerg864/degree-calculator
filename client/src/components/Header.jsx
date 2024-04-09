@@ -14,7 +14,7 @@ import i18n from 'i18next';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SchoolIcon from '@mui/icons-material/School';
 
-function Header({isAuthenticated, setIsAuthenticated, title, setTitle}) {
+function Header({isAuthenticated, setIsAuthenticated, setDegreeAvg, degreeAvg}) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const cookies = new Cookies();
@@ -30,7 +30,7 @@ function Header({isAuthenticated, setIsAuthenticated, title, setTitle}) {
         setIsAuthenticated(false);
         cookies.remove('userToken');
         cookies.remove('user');
-        setTitle(null);
+        setDegreeAvg(0);
     }
     navigate('/login');
   }
@@ -77,7 +77,7 @@ function Header({isAuthenticated, setIsAuthenticated, title, setTitle}) {
               textDecoration: 'none',
             }}
           >
-            {title ? title : t("title")}
+            {degreeAvg ? <React.Fragment>{t("degreeAvg")}: {degreeAvg}</React.Fragment> : <React.Fragment>{t("title")}</React.Fragment>}
           </Typography>
           <Typography
             variant="h6"
@@ -94,7 +94,7 @@ function Header({isAuthenticated, setIsAuthenticated, title, setTitle}) {
               textDecoration: 'none',
             }}
           >
-            {title ? title : t("title")}
+            {degreeAvg ? <React.Fragment>{t("degreeAvg")}: {degreeAvg}</React.Fragment> : <React.Fragment>{t("title")}</React.Fragment>}
           </Typography>
           </Box>
 
