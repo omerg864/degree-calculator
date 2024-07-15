@@ -7,6 +7,7 @@ import connectDB from "./config/db.js";
 const config = dotenv.config();
 import userRouter from './routes/userRoutes.js';
 import courseRouter from './routes/courseRoutes.js';
+import degreeRouter from './routes/degreeRoutes.js';
 import { fileURLToPath } from 'url';
 import mongoSanitize from 'express-mongo-sanitize';
 import cors from 'cors';
@@ -48,5 +49,6 @@ app.listen(PORT, () => {
 // app.use('/api/name', name); use the route
 app.use("/api/user", userRouter);
 app.use("/api/course", courseRouter);
+app.use("/api/degree", degreeRouter);
 
 app.use(errorHandler);

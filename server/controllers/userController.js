@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
+import Degree from '../models/degreeModel.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { sendEmail } from '../utils/generalFunctions.js';
@@ -36,10 +37,15 @@ const register = asyncHandler(async (req, res, next) => {
     const user = await User.create({
         name,
         email: email,
-        password: hashedPassword,
-        degree,
-        school
+        password: hashedPassword
     });
+    const newDegree = await Degree.create({
+        name: degree,
+        school: school,
+        userId: user._id
+    });
+    user.degree = newDegree._id;
+    await user.save();
     try {
         success = await sendEmail(user.email, 'Verify your email', `Please verify your email by clicking on the link: ${process.env.HOST_ADDRESS}/verify/${user._id}`);
     } catch(err) {
@@ -74,7 +80,7 @@ const login = asyncHandler(async (req, res, next) => {
         res.status(400);
         throw new Error('Invalid password');
     }
-    var user = await User.findOne({ "email" : { $regex : new RegExp(`^${email}$`, 'i') } });
+    var user = await User.findOne({ "email" : { $regex : new RegExp(`^${email}$`, 'i') } }).populate('degree');
     if (!user) {
         res.status(400);
         throw new Error('Invalid email or password');
@@ -124,7 +130,7 @@ const verify = asyncHandler(async (req, res, next) => {
 });
 
 const getUser = asyncHandler(async (req, res, next) => {
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id).populate('degree');
     if(!user) {
         res.status(400);
         throw new Error('User not found');
@@ -136,8 +142,8 @@ const getUser = asyncHandler(async (req, res, next) => {
 });
 
 const updateUserInfo = asyncHandler(async (req, res, next) => {
-    const { name, email, degree, school } = req.body;
-    if(!name, !email, !degree, !school) {
+    const { name, email, degree } = req.body;
+    if(!name || !email || !degree) {
         res.status(400);
         throw new Error('Please fill all the fields');
     }
@@ -149,7 +155,6 @@ const updateUserInfo = asyncHandler(async (req, res, next) => {
     user.name = name;
     user.email = email;
     user.degree = degree;
-    user.school = school;
     await user.save();
     let specialMessage;
     const clean = _.escapeRegExp(process.env.SPECIAL_EMAIL);
@@ -163,6 +168,27 @@ const updateUserInfo = asyncHandler(async (req, res, next) => {
         specialMessage
     });
 });
+
+const updateDegree = asyncHandler(async (req, res, next) => {
+    const { id } = req.body;
+    const degree = await Degree.findById(id);
+    if(!degree) {
+        res.status(400);
+        throw new Error('Degree not found');
+    }
+    if (degree.userId.toString() !== req.user._id.toString()) {
+        res.status(401);
+        throw new Error('Not authorized');
+    }
+    const user = await User.findById(req.user._id);
+    user.degree = degree._id;
+    await user.save();
+    res.status(200).json({
+        success: true,
+        degree: user.degree
+    });
+});
+
 
 const updateUserPassword = asyncHandler(async (req, res, next) => {
     const { password } = req.body;
@@ -238,4 +264,4 @@ const resetPasswordToken = asyncHandler(async (req, res, next) => {
 });
 
 
-export {login, register, verify, getUser, updateUserInfo, updateUserPassword, resetPasswordEmail, resetPasswordToken};
+export {login, register, verify, getUser, updateUserInfo, updateUserPassword, resetPasswordEmail, resetPasswordToken, updateDegree};

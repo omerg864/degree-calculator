@@ -14,7 +14,6 @@ import Profile from './pages/Profile.jsx'
 import PasswordChange from './pages/PasswordChange';
 import PasswordResetEmail from './pages/PasswordResetEmail.jsx';
 import PasswordResetToken from './pages/PasswordResetToken.jsx';
-import i18next from 'i18next';
 
 function App() {
   const cookies = new Cookies();

@@ -5,9 +5,9 @@ const courseScheme = mongoose.Schema({
         type: String,
         required: true
     },
-    userId: {
+    degreeId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Degree',
         required: true
     },
     assignments: [{

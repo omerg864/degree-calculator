@@ -6,12 +6,8 @@ const userScheme = mongoose.Schema({
         required: true
     },
     degree: {
-        type: String,
-        required: true
-    },
-    school: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
     email: {
         type: String,

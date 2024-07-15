@@ -1,12 +1,15 @@
 import asyncHandler from 'express-async-handler';
 import Course from '../models/courseModel.js';
+import User from '../models/userModel.js';
+import Degree from '../models/degreeModel.js';
 import _ from 'lodash';
 
 const getUserCourses = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.user._id);
     const courses = await Course.aggregate([
         {
             $match: {
-                userId: req.user._id
+                degreeId: user.degree
             }
         },
         {
@@ -61,8 +64,11 @@ const getUserCourses = asyncHandler(async (req, res, next) => {
 });
 
 const createCourse = asyncHandler(async (req, res, next) => {
-    console.log(req.body);
     const {name, points, grade, assignments, year, semester} = req.body;
+    if (!name || !points || !year || !semester) {
+        res.status(400);
+        throw new Error('Please fill all the fields');
+    }
     let tempGrade;
     if(assignments.length) {
         tempGrade = null;
@@ -70,6 +76,7 @@ const createCourse = asyncHandler(async (req, res, next) => {
     else {
         tempGrade = grade;
     }
+    const user = await User.findById(req.user._id);
     const course = await Course.create({
         name,
         points,
@@ -77,7 +84,7 @@ const createCourse = asyncHandler(async (req, res, next) => {
         assignments,
         year,
         semester,
-        userId: req.user._id
+        degreeId: user.degree
     });
     let specialMessage;
     const clean = _.escapeRegExp(process.env.SPECIAL_EMAIL);
@@ -97,6 +104,15 @@ const updateCourse = asyncHandler(async (req, res, next) => {
     if (!course) {
         res.status(404);
         throw new Error('Course not found');
+    }
+    const degree = await Degree.findById(course.degreeId);
+    if(!degree) {
+        res.status(404);
+        throw new Error('Degree not found');
+    }
+    if (degree.userId.toString() !== req.user._id.toString()) {
+        res.status(401);
+        throw new Error('Not authorized');
     }
     const {name, points, grade, assignments, binaryPass } = req.body;
     course.name = name;
@@ -120,6 +136,15 @@ const deleteCourse = asyncHandler(async (req, res, next) => {
     if (!course) {
         res.status(404);
         throw new Error('Course not found');
+    }
+    const degree = await Degree.findById(course.degreeId);
+    if(!degree) {
+        res.status(404);
+        throw new Error('Degree not found');
+    }
+    if (degree.userId.toString() !== req.user._id.toString()) {
+        res.status(401);
+        throw new Error('Not authorized');
     }
     await Course.findByIdAndDelete(req.params.id);
     res.status(200).json({
