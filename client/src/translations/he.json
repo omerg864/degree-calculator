@@ -80,7 +80,18 @@
         "name": "שם",
         "email": "אימייל",
         "school": "בית ספר",
-        "degree": "תואר"
+        "degree": "תואר",
+        "personalDetails": "פרטים אישיים",
+        "degrees": "תארים",
+        "currentDegree": "תואר נוכחי",
+        "degreeUpdated": "התואר עודכן בהצלחה",
+        "newDegree": "תואר חדש",
+        "deleteDegree?": "האם אתה בטוח שברצונך למחוק את התואר?",
+        "deleteDegreeMessage": "התואר יימחק לצמיתות וכל הקורסים שמשויכים אליו יימחקו",
+        "cancel": "ביטול",
+        "delete": "מחיקה",
+        "deleting": "מחיקת",
+        "degreeDeleted": "התואר נמחק בהצלחה"
     },
     "PasswordChange": {
         "passwordChange": "שינוי סיסמה",

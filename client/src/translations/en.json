@@ -80,7 +80,18 @@
         "name": "Name",
         "email": "Email",
         "school": "School",
-        "degree": "Degree"
+        "degree": "Degree",
+        "personalDetails": "Personal Details",
+        "degrees": "Degrees",
+        "currentDegree": "Current Degree",
+        "degreeUpdated": "Degree Updated Successfully",
+        "newDegree": "New Degree",
+        "deleteDegree?": "Are you sure you want to delete this degree?",
+        "deleteDegreeMessage": "This action cannot be undone and will delete all courses associated with this degree",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "deleting": "Deleting",
+        "degreeDeleted": "Degree Deleted Successfully"
     },
     "PasswordChange": {
         "passwordChange": "Change Password",

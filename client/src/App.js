@@ -36,7 +36,7 @@ function App() {
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated}/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/verify/:id" element={<Verify/>} />
-        <Route path="/profile" element={<Profile isAuthenticated={isAuthenticated}/>} />
+        <Route path="/profile" element={<Profile setDegreeAvg={setDegreeAvg}  isAuthenticated={isAuthenticated}/>} />
         <Route path="/password/change" element={<PasswordChange isAuthenticated={isAuthenticated}/>} />
         <Route path="/password/reset/email" element={<PasswordResetEmail/>} />
         <Route path="/password/reset/:token" element={<PasswordResetToken/>} />

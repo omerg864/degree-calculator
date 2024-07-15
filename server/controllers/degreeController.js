@@ -17,7 +17,7 @@ const addDegree =  asyncHandler(async (req, res, next) => {
     });
     res.status(201).json({
         success: true,
-        data: degree
+        degree
     });
 });
 
@@ -25,6 +25,7 @@ const deleteDegree = asyncHandler(async (req, res, next) => {
     // delete degree
     const { id } = req.params;
     const degree = await Degree.findById(id);
+    const user = await User.findById(req.user._id);
     if(!degree) {
         res.status(400);
         throw new Error('Degree not found');
@@ -33,15 +34,32 @@ const deleteDegree = asyncHandler(async (req, res, next) => {
         res.status(401);
         throw new Error('Not authorized');
     }
-    const courses = await Course.find({degreeId: id});
-    for(let i = 0; i < courses.length; i++) {
-        let course = courses[i];
-        await course.remove();
+    const degrees = await Degree.find({userId: req.user._id});
+    if(degrees.length === 1) {
+        res.status(400);
+        throw new Error('You must have at least one degree');
     }
-    await degree.remove();
+    if (degree._id.toString() === req.user.degree.toString()) {
+        const newDegree = degrees.find(degree => degree._id.toString() !== req.user.degree.toString());
+        user.degree = newDegree._id;
+        await user.save();
+    }
+    const newDegree = await Degree.findById(user.degree);
+    const courses = await Course.deleteMany({degreeId: degree._id});
+    await Degree.deleteOne({_id: id});
     res.status(200).json({
         success: true,
-        message: 'Degree deleted'
+        message: 'Degree deleted',
+        user: {
+            _id: user._id,
+            email: user.email,
+            name: user.name,
+            degree: {
+                _id: newDegree._id,
+                name: newDegree.name,
+                school: newDegree.school
+            }
+        }
     });
 });
 

@@ -130,14 +130,26 @@ const verify = asyncHandler(async (req, res, next) => {
 });
 
 const getUser = asyncHandler(async (req, res, next) => {
-    const user = await User.findById(req.user._id).populate('degree');
+    const user = await User.findById(req.user._id);
+    const user_degrees = await Degree.find({ userId: req.user._id });
+    const degree = user_degrees.find(degree => degree._id.toString() === user.degree.toString());
     if(!user) {
         res.status(400);
         throw new Error('User not found');
     }
     res.status(200).json({
         success: true,
-        user: user
+        user: {
+            _id: user._id,
+            email: user.email,
+            name: user.name,
+            degree: {
+                _id: degree._id,
+                name: degree.name,
+                school: degree.school
+            }
+        },
+        degrees: user_degrees
     });
 });
 
@@ -185,7 +197,16 @@ const updateDegree = asyncHandler(async (req, res, next) => {
     await user.save();
     res.status(200).json({
         success: true,
-        degree: user.degree
+        user: {
+            _id: user._id,
+            email: user.email,
+            name: user.name,
+            degree: {
+                _id: degree._id,
+                name: degree.name,
+                school: degree.school
+            }
+        }
     });
 });
 
