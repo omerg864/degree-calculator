@@ -303,7 +303,7 @@ const handleChangeDegreeSubmit = async () => {
         <IconButton sx={{height: "fit-content"}} onClick={backButton}>
           {i18next.dir(i18next.language) === 'ltr' ? <ArrowBackIcon/> :<ArrowForwardIcon />}
         </IconButton>
-        <h1>{tab === 'degree' ? t('degrees') : t("profile")}</h1>
+        <h1>{(tab === 'degree' || tab === 'degreeChange') ? t('degrees') : t("profile")}</h1>
         <Box sx={{width: "1.5rem"}}></Box>
       </div>
       {tab === 0 && <Box className='box-container' component={Paper} >
