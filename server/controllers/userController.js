@@ -15,7 +15,7 @@ const generateToken = (id) => {
 
 const register = asyncHandler(async (req, res, next) => {
     const {name, email, password, degree, school} = req.body;
-    if(!name, !email, !password, !degree, !school) {
+    if(!name || !email || !password || !degree || !school) {
         res.status(400);
         throw new Error('Please fill all the fields');
     }
@@ -164,6 +164,11 @@ const updateUserInfo = asyncHandler(async (req, res, next) => {
         res.status(400);
         throw new Error('User not found');
     }
+    const userFound = await User.findOne({ "email" : { $regex : new RegExp(`^${email}$`, 'i') } });
+    if (userFound) {
+        res.status(400);
+        throw new Error('User with that email already exists');
+    }
     user.name = name;
     user.email = email;
     user.degree = degree;
@@ -216,6 +221,10 @@ const updateUserPassword = asyncHandler(async (req, res, next) => {
     if(!password) {
         res.status(400);
         throw new Error('Please fill all the fields');
+    }
+    if(!password_regex.test(password)) {
+        res.status(400);
+        throw new Error('Invalid password');
     }
     const user = await User.findById(req.user._id);
     if(!user) {
