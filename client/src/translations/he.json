@@ -124,7 +124,8 @@
         "email": "אימייל",
         "password": "סיסמה",
         "forgot": "שכחתי סיסמה",
-        "noAccount": "אין לך חשבון?"
+        "noAccount": "אין לך חשבון?",
+        "google": "המשך עם גוגל"
     },
     "PasswordResetEmail": {
         "reset": "איפוס סיסמה",

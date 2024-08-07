@@ -124,7 +124,8 @@
         "email": "Email",
         "password": "Password",
         "forgot": "Forgot Password?",
-        "noAccount": "Don't have an account?"
+        "noAccount": "Don't have an account?",
+        "google": "Continue with Google"
     },
     "PasswordResetEmail": {
         "reset": "Reset Password",

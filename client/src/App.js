@@ -14,6 +14,7 @@ import Profile from './pages/Profile.jsx'
 import PasswordChange from './pages/PasswordChange';
 import PasswordResetEmail from './pages/PasswordResetEmail.jsx';
 import PasswordResetToken from './pages/PasswordResetToken.jsx';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
   const cookies = new Cookies();
@@ -29,19 +30,21 @@ function App() {
   return (
     <>
     <ToastContainer theme="colored"/>
-    <Router>
-    <Header direction="rtl" isAuthenticated={isAuthenticated} setDegreeAvg={setDegreeAvg} degreeAvg={degreeAvg} setIsAuthenticated={setIsAuthenticated}/>
-      <Routes>
-        <Route path="/" element={<Home isAuthenticated={isAuthenticated} setDegreeAvg={setDegreeAvg} degreeAvg={degreeAvg}/>} />
-        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated}/>} />
-        <Route path="/register" element={<Register/>} />
-        <Route path="/verify/:id" element={<Verify/>} />
-        <Route path="/profile" element={<Profile setDegreeAvg={setDegreeAvg}  isAuthenticated={isAuthenticated}/>} />
-        <Route path="/password/change" element={<PasswordChange isAuthenticated={isAuthenticated}/>} />
-        <Route path="/password/reset/email" element={<PasswordResetEmail/>} />
-        <Route path="/password/reset/:token" element={<PasswordResetToken/>} />
-      </Routes>
-    </Router>
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+      <Router>
+        <Header direction="rtl" isAuthenticated={isAuthenticated} setDegreeAvg={setDegreeAvg} degreeAvg={degreeAvg} setIsAuthenticated={setIsAuthenticated}/>
+        <Routes>
+          <Route path="/" element={<Home isAuthenticated={isAuthenticated} setDegreeAvg={setDegreeAvg} degreeAvg={degreeAvg}/>} />
+          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated}/>} />
+          <Route path="/register" element={<Register/>} />
+          <Route path="/verify/:id" element={<Verify/>} />
+          <Route path="/profile" element={<Profile setDegreeAvg={setDegreeAvg}  isAuthenticated={isAuthenticated}/>} />
+          <Route path="/password/change" element={<PasswordChange isAuthenticated={isAuthenticated}/>} />
+          <Route path="/password/reset/email" element={<PasswordResetEmail/>} />
+          <Route path="/password/reset/:token" element={<PasswordResetToken/>} />
+        </Routes>
+      </Router>
+    </GoogleOAuthProvider>
     </>
   );
 }

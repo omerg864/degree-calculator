@@ -6,6 +6,8 @@ import jwt from 'jsonwebtoken';
 import { sendEmail } from '../utils/generalFunctions.js';
 import { password_regex, email_regex } from '../utils/consts.js';
 import _ from 'lodash';
+import googleAuthClient from '../config/google.js';
+import axios from 'axios';
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -293,5 +295,51 @@ const resetPasswordToken = asyncHandler(async (req, res, next) => {
     });
 });
 
+const googleAuth = asyncHandler(async (req, res, next) => {
+    const { code } = req.body;
+    console.log(code);
+    if (!code) {
+        res.status(400);
+        throw new Error('Invalid code');
+    }
 
-export {login, register, verify, getUser, updateUserInfo, updateUserPassword, resetPasswordEmail, resetPasswordToken, updateDegree};
+    const googleRes = await googleAuthClient.getToken(code);
+
+    googleAuthClient.setCredentials(googleRes.tokens);
+
+    const userRes = await axios.get(
+        `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleRes.tokens.access_token}`
+    );
+    if (!userRes.data.email) {
+        res.status(400);
+        throw new Error('Invalid email');
+    }
+    console.log(userRes.data);
+    const user = await User.findOne({
+        email: { $regex: new RegExp(`^${userRes.data.email}$`, 'i') },
+    }).populate('degree');
+    if (!user) {
+        // TODO: google register
+        res.status(400);
+        throw new Error('User not found');
+    } else {
+        // login
+        const token = generateToken(user._id);
+        delete user._doc['password'];
+        delete user._doc['createdAt'];
+        delete user._doc['updatedAt'];
+        delete user._doc['__v'];
+        res.status(200).json({
+            success: true,
+            user: {
+                ...user._doc,
+                token: token,
+            },
+        });
+    }
+});
+
+
+
+
+export {login, register, verify, getUser, updateUserInfo, updateUserPassword, resetPasswordEmail, resetPasswordToken, updateDegree, googleAuth};
