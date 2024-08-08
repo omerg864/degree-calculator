@@ -18,7 +18,7 @@ import DegreeChange from '../components/DegreeChange';
 
 
 
-function Profile({ isAuthenticated, setDegreeAvg }) {
+function Profile({ setDegreeAvg }) {
 
   const { hash } = useLocation();
   const [tab, setTab] = useState(hash ? hash.replace('#', '') : 0);
@@ -250,10 +250,6 @@ const handleChangeDegreeSubmit = async () => {
   const handleClose = () => {
     setOpen(false);
     setDegree({name: "", school: "", _id: ""});
-  }
-
-  if(!isAuthenticated) {
-    navigate('/login');
   }
 
   useEffect(() => {

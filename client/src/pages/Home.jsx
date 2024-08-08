@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
 import { calculateAverages } from '../utils/generalFunctions';
@@ -16,11 +15,9 @@ import Summary from '../components/Summary';
 import Cookies from 'universal-cookie';
 
 
-function Home({ isAuthenticated, setDegreeAvg, degreeAvg}) {
+function Home({ setDegreeAvg, degreeAvg}) {
 
     const { t }= useTranslation('translation', { keyPrefix: 'Home' });
-
-    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [courses, setCourses] = useState([]);
     const [year, setYear] = useState(1);
@@ -34,13 +31,6 @@ function Home({ isAuthenticated, setDegreeAvg, degreeAvg}) {
     const [nav, setNav] = useState(false);
     const [tab, setTab] = useState("main");
     const cookie = new Cookies();
-
-    useEffect(()=> {
-        if(!isAuthenticated) {
-            navigate('/login');
-        }
-
-    }, [isAuthenticated, navigate])
 
     const plusYear = () => {
         setYear(year + 1);
@@ -233,9 +223,8 @@ function Home({ isAuthenticated, setDegreeAvg, degreeAvg}) {
     }
 
     useEffect(()=> {
-        if(isAuthenticated)
-            getCourses();
-    }, [isAuthenticated]);
+        getCourses();
+    }, []);
 
     if(isLoading) {
         return <Spinner/>;

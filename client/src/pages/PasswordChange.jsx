@@ -9,7 +9,7 @@ import Spinner from '../components/Spinner';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 
-function PasswordChange({ isAuthenticated}) {
+function PasswordChange() {
 
   const [formData, setFormData] = useState({ password: '', confirmPassword: "" });
   const { t } = useTranslation('translation', { keyPrefix: 'PasswordChange' });
@@ -53,10 +53,6 @@ function PasswordChange({ isAuthenticated}) {
 
   const handleChange = (e) => {
     setFormData({...formData, [e.target.name]: e.target.value});
-  }
-
-  if(!isAuthenticated) {
-    navigate('/login');
   }
 
   if(isLoading){

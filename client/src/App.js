@@ -16,6 +16,7 @@ import PasswordResetEmail from './pages/PasswordResetEmail.jsx';
 import PasswordResetToken from './pages/PasswordResetToken.jsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import CompleteRegistration from './pages/CompleteRegistration.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 function App() {
   const cookies = new Cookies();
@@ -35,13 +36,13 @@ function App() {
       <Router>
         <Header direction="rtl" isAuthenticated={isAuthenticated} setDegreeAvg={setDegreeAvg} degreeAvg={degreeAvg} setIsAuthenticated={setIsAuthenticated}/>
         <Routes>
-          <Route path="/" element={<Home isAuthenticated={isAuthenticated} setDegreeAvg={setDegreeAvg} degreeAvg={degreeAvg}/>} />
+          <Route path="/" element={<ProtectedRoute isAuthenticated={isAuthenticated}><Home setDegreeAvg={setDegreeAvg} degreeAvg={degreeAvg}/></ProtectedRoute>} />
           <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated}/>} />
           <Route path="/register" element={<Register/>} />
           <Route path="/register/complete/:id" element={<CompleteRegistration setIsAuthenticated={setIsAuthenticated}/>} />
           <Route path="/verify/:id" element={<Verify/>} />
-          <Route path="/profile" element={<Profile setDegreeAvg={setDegreeAvg}  isAuthenticated={isAuthenticated}/>} />
-          <Route path="/password/change" element={<PasswordChange isAuthenticated={isAuthenticated}/>} />
+          <Route path="/profile" element={<ProtectedRoute isAuthenticated={isAuthenticated}><Profile setDegreeAvg={setDegreeAvg} /></ProtectedRoute>} />
+          <Route path="/password/change" element={<ProtectedRoute isAuthenticated={isAuthenticated}><PasswordChange /></ProtectedRoute>} />
           <Route path="/password/reset/email" element={<PasswordResetEmail/>} />
           <Route path="/password/reset/:token" element={<PasswordResetToken/>} />
         </Routes>
