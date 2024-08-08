@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import i18n from 'i18next';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SchoolIcon from '@mui/icons-material/School';
+import NumberCounter from './NumberCounter';
 
 function Header({isAuthenticated, setIsAuthenticated, setDegreeAvg, degreeAvg}) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -77,7 +78,7 @@ function Header({isAuthenticated, setIsAuthenticated, setDegreeAvg, degreeAvg}) 
               textDecoration: 'none',
             }}
           >
-            {degreeAvg ? <React.Fragment>{t("degreeAvg")}: {degreeAvg}</React.Fragment> : <React.Fragment>{t("title")}</React.Fragment>}
+            {degreeAvg ? <React.Fragment>{t("degreeAvg")}: {<NumberCounter from={0} to={degreeAvg} />}</React.Fragment> : <React.Fragment>{t("title")}</React.Fragment>}
           </Typography>
           <Typography
             variant="h6"
@@ -94,7 +95,7 @@ function Header({isAuthenticated, setIsAuthenticated, setDegreeAvg, degreeAvg}) 
               textDecoration: 'none',
             }}
           >
-            {degreeAvg ? <React.Fragment>{t("degreeAvg")}: {degreeAvg}</React.Fragment> : <React.Fragment>{t("title")}</React.Fragment>}
+            {degreeAvg ? <React.Fragment>{t("degreeAvg")}: {<NumberCounter from={0} to={degreeAvg} />}</React.Fragment> : <React.Fragment>{t("title")}</React.Fragment>}
           </Typography>
           </Box>
 
