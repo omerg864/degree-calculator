@@ -10,6 +10,8 @@ import CourseSummaryView from '../components/CourseSummaryView';
 import CourseSummaryForm from '../components/CourseSummaryForm';
 import YearSlider from '../components/YearSlider';
 import { useTranslation } from "react-i18next";
+import { motion } from 'framer-motion';
+import useWindowDimensions from '../hooks/useWindowDimensions.js';
 
 
 function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSemester, minusSemester, minusYear, deleteCourse, updateCourse,
@@ -31,6 +33,7 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
         year: 1
     });
     const [newCourse, setNewCourse] = useState(false);
+    const dimensions = useWindowDimensions();
 
     useEffect(() => {
         if(simulation) {
@@ -167,58 +170,11 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
     {courses.filter((semesters) => semesters._id.year === year && semester === semesters._id.semester).length ? null : 
     <>
         <SemesterSlider semester={semester} plusSemester={plusSemester} minusSemester={minusSemester} avg={0}/>
-    </>}
-    {courses.filter((semesters) => semesters._id.year === year && semester === semesters._id.semester).map((course) => {
-        return <div style={{width: "100%"}} key={`${semester}-${year}`}>
-        <SemesterSlider semester={semester} plusSemester={plusSemester} minusSemester={minusSemester} avg={course._id.avg}/>
-        {course.courses.map((c) => {
-            return (
-                <Accordion sx={{width: "100%"}} key={c._id} expanded={expanded === c._id || expanded === "all"} onChange={handleExpand(c._id)}>
-                    <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1bh-content"
-                    >
-                    {edit !== c._id ? <CourseSummaryView course={c} select={simulation} disabled={arrayIncludes(simulationData.ids, c.assignments.map(ass => ass._id)) || c.binaryPass} checked={simulationData.ids.filter((id) => id === c._id).length !== 0} toggleCourse={toggleSelectCourse} /> 
-                    : <CourseSummaryForm form={form} changeForm={changeForm}/>}
-                    </AccordionSummary>
-                    <AccordionDetails sx={{paddingLeft: "0", paddingRight: "0"}}>
-                    <Divider orientation='horizontal'/>
-                    <div style={{width: "100%"}}>
-                        {edit !== c._id ?
-                        c.assignments.map(ass => {
-                            return (
-                                <AssignmentView key={ass._id} course={c} disabled={c.binaryPass} checked={simulationData.ids.filter((id) => id === ass._id).length !== 0} assignment={ass} select={simulation} toggleCourseAssignment={toggleCourseAssignment}  />
-                            )
-                        }) : form.assignments.map((ass, index) => {
-                            return (
-                                <AssignmentForm key={ass._id} assignment={ass} index={index} changeAssignments={changeAssignments} deleteAssignment={deleteAssignment}/>
-                            )
-                        })}
-                    </div>
-                    {edit === c._id ? <IconButton onClick={newAssignment}>
-                                        <AddIcon sx={{color: "green"}}/>
-                                    </IconButton> : <></>}
-                    {edit === c._id ? <div><FormControlLabel sx={{margin: 0}} control={<Checkbox onChange={changeCheckBox} name="binaryPass" checked={form.binaryPass} />} label={t("binaryPass")} /></div> : <></>}
-                    {simulation ? <></> : edit === c._id ? <div className='space' style={{padding: "1rem 1rem"}}>
-                        <Button aria-label="delete Course" variant="outlined" color="error" onClick={() => deleteCourse(c._id, setEdit, setExpanded)}>
-                            {t("delete")}
-                        </Button>
-                        <Button aria-label="update Course" variant="contained" color="primary" id='btn-primary' onClick={() => updateCourse(c._id, form, setEdit, setExpanded)}>
-                        {t("save")}
-                        </Button>
-                    </div> : <div className='edit-container'>
-                            <Button aria-label="edit Course" variant="contained" color="primary" id='btn-primary' onClick={() => {editCourse(c)}}>
-                            {t("edit")}
-                            </Button>
-                        </div>}
-                    </AccordionDetails>
-                </Accordion>
-            )
-        })}
-            </div>
-    })}
-    {newCourse ? <>
-        <Accordion sx={{width: "100%"}} expanded={expanded === "new"} onChange={handleExpand("new")}>
+        <motion.div initial={{ y: dimensions.height + 500}} animate={{ y: 0 }}
+        exit={{ y: 0 }}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }} >
+            {newCourse && <>
+                <Accordion sx={{width: "100%"}} expanded={expanded === "new"} onChange={handleExpand("new")}>
                     <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1bh-content"
@@ -247,10 +203,103 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
                     </div>
                     </AccordionDetails>
                 </Accordion>
-    </> : <></>}
-    <Button aria-label="open new Course" sx={{width: "fit-content", margin: "0.7rem 0"}} onClick={openNewCourse}>
-        {t("newCourse")}
-    </Button>
+            </>}
+            <div  style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+                <Button aria-label="open new Course" sx={{width: "fit-content", margin: "0.7rem 0"}} onClick={openNewCourse}>
+                    {t("newCourse")}
+                </Button>
+            </div>
+        </motion.div>
+    </>}
+    {courses.filter((semesters) => semesters._id.year === year && semester === semesters._id.semester).map((course) => 
+        <div style={{width: "100%"}} key={`${semester}-${year}`}>
+            <SemesterSlider semester={semester} plusSemester={plusSemester} minusSemester={minusSemester} avg={course._id.avg}/>
+            <motion.div  initial={{ y: dimensions.height + 500}} animate={{ y: 0 }}
+        exit={{ y: 0 }}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }} style={{width: "100%"}}> 
+                {course.courses.map((c) => {
+                    return (
+                        <Accordion sx={{width: "100%"}} key={c._id} expanded={expanded === c._id || expanded === "all"} onChange={handleExpand(c._id)}>
+                            <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1bh-content"
+                            >
+                            {edit !== c._id ? <CourseSummaryView course={c} select={simulation} disabled={arrayIncludes(simulationData.ids, c.assignments.map(ass => ass._id)) || c.binaryPass} checked={simulationData.ids.filter((id) => id === c._id).length !== 0} toggleCourse={toggleSelectCourse} /> 
+                            : <CourseSummaryForm form={form} changeForm={changeForm}/>}
+                            </AccordionSummary>
+                            <AccordionDetails sx={{paddingLeft: "0", paddingRight: "0"}}>
+                            <Divider orientation='horizontal'/>
+                            <div style={{width: "100%"}}>
+                                {edit !== c._id ?
+                                c.assignments.map(ass => {
+                                    return (
+                                        <AssignmentView key={ass._id} course={c} disabled={c.binaryPass} checked={simulationData.ids.filter((id) => id === ass._id).length !== 0} assignment={ass} select={simulation} toggleCourseAssignment={toggleCourseAssignment}  />
+                                    )
+                                }) : form.assignments.map((ass, index) => {
+                                    return (
+                                        <AssignmentForm key={ass._id} assignment={ass} index={index} changeAssignments={changeAssignments} deleteAssignment={deleteAssignment}/>
+                                    )
+                                })}
+                            </div>
+                            {edit === c._id ? <IconButton onClick={newAssignment}>
+                                                <AddIcon sx={{color: "green"}}/>
+                                            </IconButton> : <></>}
+                            {edit === c._id ? <div><FormControlLabel sx={{margin: 0}} control={<Checkbox onChange={changeCheckBox} name="binaryPass" checked={form.binaryPass} />} label={t("binaryPass")} /></div> : <></>}
+                            {simulation ? <></> : edit === c._id ? <div className='space' style={{padding: "1rem 1rem"}}>
+                                <Button aria-label="delete Course" variant="outlined" color="error" onClick={() => deleteCourse(c._id, setEdit, setExpanded)}>
+                                    {t("delete")}
+                                </Button>
+                                <Button aria-label="update Course" variant="contained" color="primary" id='btn-primary' onClick={() => updateCourse(c._id, form, setEdit, setExpanded)}>
+                                {t("save")}
+                                </Button>
+                            </div> : <div className='edit-container'>
+                                    <Button aria-label="edit Course" variant="contained" color="primary" id='btn-primary' onClick={() => {editCourse(c)}}>
+                                    {t("edit")}
+                                    </Button>
+                                </div>}
+                            </AccordionDetails>
+                        </Accordion>
+                    )
+                })}
+                {newCourse && <>
+                    <Accordion sx={{width: "100%"}} expanded={expanded === "new"} onChange={handleExpand("new")}>
+                                <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1bh-content"
+                                >
+                                <CourseSummaryForm form={form} changeForm={changeForm}/>
+                                </AccordionSummary>
+                                <AccordionDetails sx={{paddingLeft: "0", paddingRight: "0"}}>
+                                <Divider orientation='horizontal'/>
+                                <div style={{width: "100%"}}>
+                                    {form.assignments.map((ass, index) => {
+                                        return (
+                                            <AssignmentForm assignment={ass} index={index} changeAssignments={changeAssignments} deleteAssignment={deleteAssignment}/>
+                                        )
+                                    })}
+                                </div>
+                                <IconButton onClick={newAssignment}>
+                                    <AddIcon sx={{color: "green"}}/>
+                                </IconButton>
+                                <div className='space' style={{padding: "1rem 1rem"}}>
+                                    <Button aria-label="remove new course" variant="contained" color="error" onClick={removeNewCourse}>
+                                    {t("delete")}
+                                    </Button>
+                                    <Button aria-label="create Course" variant="contained" color="primary" id='btn-primary' onClick={() => createCourse(form, setExpanded, setNewCourse)}>
+                                    {t("save")}
+                                    </Button>
+                                </div>
+                                </AccordionDetails>
+                            </Accordion>
+                </>}
+                <div  style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+                    <Button aria-label="open new Course" sx={{width: "fit-content", margin: "0.7rem 0"}} onClick={openNewCourse}>
+                        {t("newCourse")}
+                    </Button>
+                </div>
+            </motion.div>
+        </div>
+    )}
     </div>
     </>
   )
