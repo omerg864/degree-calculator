@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import { CircularProgressbar, CircularProgressbarWithChildren } from 'react-circular-progressbar';
+import React, { Fragment, useState } from 'react';
+import { CircularProgressbar } from 'react-circular-progressbar';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Divider, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { motion } from 'framer-motion';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 
 function Summary({courses, yearsAvg, degreeAvg}) {
 
     const { t } = useTranslation("translation", { keyPrefix: "Summary"});
 
     const [expanded, setExpanded] = useState(false);
+    const dimensions = useWindowDimensions();
 
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
@@ -69,7 +72,8 @@ function Summary({courses, yearsAvg, degreeAvg}) {
   return (
     <div style={{width: "100%", textAlign: 'center'}}>
         <h1>{t("summary")}</h1>
-        <div style={{width: "100%", display: "flex", justifyContent: "center", marginBottom: '10px'}}>
+        <motion.div initial={{ y: dimensions.width + 200 }} animate={{ y: 0 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }} style={{width: "100%", display: "flex", justifyContent: "center", marginBottom: '10px'}}>
         <Accordion sx={{width: "100%"}} expanded={expanded === -1} onChange={handleChange(-1)}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content">
                             <Box className='space' sx={{width: "100%", padding: "0.5rem 1rem", boxSizing: "border-box"}}>
@@ -139,8 +143,9 @@ function Summary({courses, yearsAvg, degreeAvg}) {
                         </div>
                         </AccordionDetails>
                     </Accordion>
-        </div>
-        <div className='courses'>
+        </motion.div>
+        <motion.div initial={{ y: dimensions.width + 200 }} animate={{ y: 0 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }} className='courses'>
             {yearsAvg.map((yearAvg, index) => {
                 return (
                     <Accordion sx={{width: "100%"}} key={`year ${index}`} expanded={expanded === index} onChange={handleChange(index)}>
@@ -168,7 +173,7 @@ function Summary({courses, yearsAvg, degreeAvg}) {
                         <div style={{width: "100%"}}>
                             {courses.map((semester, index2) => {
                                 if(semester._id.year !== index + 1) {
-                                    return <></>
+                                    return <Fragment key={`sem ${index2}`}></Fragment>
                                 }
                                 return (
                                     <Box key={`sem ${index2}`}>
@@ -234,7 +239,7 @@ function Summary({courses, yearsAvg, degreeAvg}) {
                     </Accordion>
                 )
             })}
-        </div>
+        </motion.div>
     </div>
   )
 }

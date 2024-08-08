@@ -1,5 +1,5 @@
 import { Accordion, AccordionDetails, AccordionSummary, Divider, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import CourseSummaryForm from './CourseSummaryForm';
 import AssignmentForm from './AssignmentForm';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -8,6 +8,8 @@ import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 
 function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, setYearAvgs, yearAvgs, degreeAvg }) {
 
@@ -16,6 +18,7 @@ function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, 
     const [coursesTemp, setCoursesTemp] = useState(deepCopyCourses(courses));
     const [yearAvgsTemp, setYearAvgsTemp] = useState(yearAvgs);
     const [degreeAvgTemp, setDegreeAvgTemp] = useState(degreeAvg);
+    const dimensions = useWindowDimensions();
 
     const changeAssignments = (e, index, indexCourse, grade) => {
         let { name, value } = e.target;
@@ -93,7 +96,8 @@ function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, 
 
   return (
     <>
-    <div className='averages'>
+    <motion.div initial={{ x: dimensions.width + 200 }} animate={{ x: 0 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }} className='averages'>
         <div className='circleContainer'>
             <CircularProgressbarWithChildren value={degreeAvgTemp}>
                 <Typography >{t("degreeAvg")}</Typography>
@@ -113,7 +117,7 @@ function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, 
                 }
             }
             if(!exists) {
-                return <></>
+                return <Fragment key={index}></Fragment>
             }
             return (
                 <div key={index} className='circleContainer'>
@@ -137,7 +141,7 @@ function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, 
                 }
             }
             if(!exists) {
-                return <></>
+                return <Fragment key={index}></Fragment>
             }
             return (
                 <div key={index} className='circleContainer'>
@@ -153,8 +157,9 @@ function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, 
                 </div>
             )
         })}
-    </div>
-    <div className='courses'>
+    </motion.div>
+    <motion.div initial={{ y: dimensions.width + 200 }} animate={{ y: 0 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }} className='courses'>
     {simulationData.courses.map((course, indexCourse) => {
         return (
             <Accordion sx={{width: "100%"}} key={course._id} expanded={!simulationData.ids.includes(course._id)}>
@@ -167,17 +172,17 @@ function Simulation({ courses, simulationData, setSimulationData, setDegreeAvg, 
                         {course.assignments.map((ass, index) => {
                             if(simulationData.ids.includes(ass._id)) {
                                 return (
-                                    <AssignmentForm assignment={ass} indexCourse={indexCourse} index={index} simulation={true} changeAssignments={changeAssignments} />
+                                    <AssignmentForm key={ass._id} assignment={ass} indexCourse={indexCourse} index={index} simulation={true} changeAssignments={changeAssignments} />
                                 )
                             }
-                            return <></>
+                            return <Fragment key={index}></Fragment>
                         })}
                     </div>
                     </AccordionDetails>
                 </Accordion>
         )
     })}
-    </div>
+    </motion.div>
     </>
   )
 }

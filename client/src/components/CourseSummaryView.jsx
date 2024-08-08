@@ -3,6 +3,7 @@ import React from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { calculateCourse } from '../utils/generalFunctions';
 import { useTranslation } from "react-i18next";
+import { motion } from 'framer-motion';
 
 function CourseSummaryView({course, select, toggleCourse, checked, disabled}) {
 
@@ -11,7 +12,7 @@ function CourseSummaryView({course, select, toggleCourse, checked, disabled}) {
   return (
     <Box className='space' sx={{width: "100%"}}>
         <div className='row' style={{flex: 1, justifyContent: "flex-start", textAlign: "start"}}>
-        {select ? <Checkbox disabled={disabled} checked={checked} sx={{padding: 0}} onClick={(e) => toggleCourse(e, course)} color="success" /> : null}
+        {select ? <motion.div animate={{scale: [0, 1]}} transition={{ duration: 0.35 }} ><Checkbox disabled={disabled} checked={checked} sx={{padding: 0}} onClick={(e) => toggleCourse(e, course)} color="success" /></motion.div> : null}
             <Typography>
                 {course.name}
             </Typography>

@@ -14,8 +14,8 @@ import { motion } from 'framer-motion';
 import useWindowDimensions from '../hooks/useWindowDimensions.js';
 
 
-function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSemester, minusSemester, minusYear, deleteCourse, updateCourse,
-    createCourse, simulation, simulationData, setSimulationData, setSimulation }) {
+function Main({ courses, year, semester, yearAvgs, plusYear, plusSemester, minusSemester, minusYear, deleteCourse, updateCourse,
+    createCourse, simulation, simulationData, setSimulationData, setSimulation, plus }) {
 
     const { t }= useTranslation('translation', { keyPrefix: 'Main' });
 
@@ -165,11 +165,11 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
 
   return (
     <>
-    <YearSlider year={year} yearAvgs={yearAvgs} plusYear={plusYear} minusYear={minusYear}/>
+    <YearSlider plus={plus} year={year} yearAvgs={yearAvgs} plusYear={plusYear} minusYear={minusYear}/>
     <div className='courses'>
     {courses.filter((semesters) => semesters._id.year === year && semester === semesters._id.semester).length ? null : 
     <>
-        <SemesterSlider semester={semester} plusSemester={plusSemester} minusSemester={minusSemester} avg={0}/>
+        <SemesterSlider plus={plus} semester={semester} plusSemester={plusSemester} minusSemester={minusSemester} avg={0}/>
         <motion.div initial={{ y: dimensions.height + 500}} animate={{ y: 0 }}
         exit={{ y: 0 }}
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }} >
@@ -213,7 +213,7 @@ function Main({ courses, year, semester, yearAvgs, degreeAvg, plusYear, plusSeme
     </>}
     {courses.filter((semesters) => semesters._id.year === year && semester === semesters._id.semester).map((course) => 
         <div style={{width: "100%"}} key={`${semester}-${year}`}>
-            <SemesterSlider semester={semester} plusSemester={plusSemester} minusSemester={minusSemester} avg={course._id.avg}/>
+            <SemesterSlider plus={plus} semester={semester} plusSemester={plusSemester} minusSemester={minusSemester} avg={course._id.avg}/>
             <motion.div  initial={{ y: dimensions.height + 500}} animate={{ y: 0 }}
         exit={{ y: 0 }}
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }} style={{width: "100%"}}> 

@@ -23,6 +23,7 @@ function Home({ setDegreeAvg, degreeAvg}) {
     const [year, setYear] = useState(1);
     const [semester, setSemester] = useState(1);
     const [yearAvgs, setYearAvgs] = useState([]);
+    const [plus, setPlus] = useState(true);
     const [simulation, setSimulation] = useState(false);
     const [simulationData, setSimulationData] = useState({
         ids: [],
@@ -33,18 +34,22 @@ function Home({ setDegreeAvg, degreeAvg}) {
     const cookie = new Cookies();
 
     const plusYear = () => {
+        setPlus(true);
         setYear(year + 1);
     }
 
     const minusYear = () => {
+        setPlus(false);
         setYear(year - 1);
     }
 
     const plusSemester = () => {
+        setPlus(true);
         setSemester(semester + 1);
     }
 
     const minusSemester = () => {
+        setPlus(false);
         setSemester(semester - 1);
     }
 
@@ -240,7 +245,7 @@ function Home({ setDegreeAvg, degreeAvg}) {
     
     return (
         <main>
-            {tab === 'main' ? <Main courses={courses} year={year} semester={semester} simulationData={simulationData} setSimulationData={setSimulationData}
+            {tab === 'main' ? <Main plus={plus} courses={courses} year={year} semester={semester} simulationData={simulationData} setSimulationData={setSimulationData}
             plusSemester={plusSemester} plusYear={plusYear} minusSemester={minusSemester} minusYear={minusYear} simulation={simulation} setSimulation={setSimulation}
             yearAvgs={yearAvgs} degreeAvg={degreeAvg} deleteCourse={deleteCourse} updateCourse={updateCourse} createCourse={createCourse} /> : 
             tab === 'simulation' ? <Simulation courses={courses} simulationData={simulationData} setSimulationData={setSimulationData}
@@ -248,7 +253,7 @@ function Home({ setDegreeAvg, degreeAvg}) {
             : <Summary courses={courses} yearsAvg={yearAvgs} degreeAvg={degreeAvg}/>}
             <SpeedDial
                 ariaLabel="navigation"
-                sx={{ position: 'sticky', bottom: 16, marginLeft: "auto", marginRight: "1rem", marginTop: "auto" }}
+                sx={{ position: 'fixed', right: 0, bottom: 16, marginLeft: "auto", marginRight: "1rem", marginTop: "auto" }}
                 icon={<SpeedDialIcon />}
                 onClose={() => setNav(false)}
                 onOpen={() => setNav(true)}

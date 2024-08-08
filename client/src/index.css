@@ -15,6 +15,7 @@ body {
 }
 main {
   background-color: #fff;
+  overflow-y: hidden;
 }
 
 
