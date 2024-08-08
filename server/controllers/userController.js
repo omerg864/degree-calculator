@@ -8,6 +8,7 @@ import { password_regex, email_regex } from '../utils/consts.js';
 import _ from 'lodash';
 import googleAuthClient from '../config/google.js';
 import axios from 'axios';
+import crypto from 'crypto';
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -95,6 +96,14 @@ const login = asyncHandler(async (req, res, next) => {
     if (!isMatch) {
         res.status(400);
         throw new Error('Invalid email or password');
+    }
+    if (user.completeRegistration) {
+        res.status(200).json({
+            success: true,
+            id: user._id,
+            completeRegistration: true
+        });
+        return;
     }
     const token = generateToken(user._id);
     delete user._doc["password"]
@@ -297,7 +306,6 @@ const resetPasswordToken = asyncHandler(async (req, res, next) => {
 
 const googleAuth = asyncHandler(async (req, res, next) => {
     const { code } = req.body;
-    console.log(code);
     if (!code) {
         res.status(400);
         throw new Error('Invalid code');
@@ -314,16 +322,35 @@ const googleAuth = asyncHandler(async (req, res, next) => {
         res.status(400);
         throw new Error('Invalid email');
     }
-    console.log(userRes.data);
     const user = await User.findOne({
         email: { $regex: new RegExp(`^${userRes.data.email}$`, 'i') },
     }).populate('degree');
     if (!user) {
-        // TODO: google register
-        res.status(400);
-        throw new Error('User not found');
+        const generatedPassword = crypto.randomBytes(20).toString('hex');
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(generatedPassword, salt);
+        const newUser = await User.create({
+            name: userRes.data.name,
+            email: userRes.data.email,
+            password: hashedPassword,
+            isVerified: true,
+            completeRegistration: true,
+        });
+        res.status(200).json({
+            success: true,
+            id: newUser._id,
+            completeRegistration: true,
+        });
     } else {
         // login
+        if (user.completeRegistration) {
+            res.status(200).json({
+                success: true,
+                id: user._id,
+                completeRegistration: true,
+            });
+            return;
+        }
         const token = generateToken(user._id);
         delete user._doc['password'];
         delete user._doc['createdAt'];
@@ -340,6 +367,48 @@ const googleAuth = asyncHandler(async (req, res, next) => {
 });
 
 
+const completeRegistration = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if(!user) {
+        res.status(400);
+        throw new Error('User not found');
+    }
+    const { degree, school } = req.body;
+    if(!degree || !school) {
+        res.status(400);
+        throw new Error('Please fill all the fields');
+    }
+    if (!user.completeRegistration) {
+        res.status(400);
+        throw new Error('User already completed registration');
+    }
+    user.completeRegistration = false;
+    const newDegree = await Degree.create({
+        name: degree,
+        school: school,
+        userId: user._id
+    });
+    user.degree = newDegree._id;
+    await user.save();
+    const token = generateToken(user._id);
+    res.status(200).json({
+        success: true,
+        user: {
+            _id: user._id,
+            email: user.email,
+            name: user.name,
+            degree: {
+                _id: newDegree._id,
+                name: newDegree.name,
+                school: newDegree.school
+            },
+            token: token
+        }
+    });
+});
 
 
-export {login, register, verify, getUser, updateUserInfo, updateUserPassword, resetPasswordEmail, resetPasswordToken, updateDegree, googleAuth};
+
+
+export {login, register, verify, getUser, updateUserInfo, updateUserPassword, resetPasswordEmail, resetPasswordToken, updateDegree, googleAuth, completeRegistration };

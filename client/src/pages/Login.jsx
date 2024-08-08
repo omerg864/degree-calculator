@@ -39,19 +39,20 @@ function Login({ setIsAuthenticated, isAuthenticated}) {
         if (!data.success) {          
             toast.error(data.message);
         } else {
-            let date30 = addDays(new Date(), 30);
-            cookies.set('userToken', data.user.token, { path: '/', secure: true, expires: date30 });
-            cookies.set('user', JSON.stringify(data.user), { path: '/', secure: true, expires: date30 });
-            setIsAuthenticated(true);
-            navigate('/');
+            if (data.completeRegistration) {
+              navigate(`/register/complete/${data.id}`);
+            } else {
+              let date30 = addDays(new Date(), 30);
+              cookies.set('userToken', data.user.token, { path: '/', secure: true, expires: date30 });
+              cookies.set('user', JSON.stringify(data.user), { path: '/', secure: true, expires: date30 });
+              setIsAuthenticated(true);
+              navigate('/');
+          }
         }
         } catch(err) {
           toast.error('Internal Server Error');
           console.log(err);
         }
-      } else {
-        console.log(authResult);
-        throw new Error(authResult);
       }
     };
 
@@ -68,11 +69,15 @@ function Login({ setIsAuthenticated, isAuthenticated}) {
             if(data.specialMessage) {
               toast.info(data.specialMessage);
             }
-            let date30 = addDays(new Date(), 30);
-            cookies.set('userToken', data.user.token, { path: '/', secure: true, expires: date30 });
-            cookies.set('user', JSON.stringify(data.user), { path: '/', secure: true, expires: date30 });
-            setIsAuthenticated(true);
-            navigate('/');
+            if (data.completeRegistration) {
+              navigate(`/register/complete/${data.id}`);
+            } else {
+              let date30 = addDays(new Date(), 30);
+              cookies.set('userToken', data.user.token, { path: '/', secure: true, expires: date30 });
+              cookies.set('user', JSON.stringify(data.user), { path: '/', secure: true, expires: date30 });
+              setIsAuthenticated(true);
+              navigate('/');
+            }
         }
         } catch(err) {
           toast.error('Internal Server Error');

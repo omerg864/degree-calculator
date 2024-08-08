@@ -140,5 +140,11 @@
         "passwordInvalid": "Password does not match the rules",
         "passwordsNotMatch": "Passwords do not match",
         "passwordChanged": "Password Changed Successfully"
+    },
+    "CompleteRegistration": {
+        "completeRegistration": "Complete Registration",
+        "degree": "Degree",
+        "school": "School",
+        "completeAndLogin": "Complete and Login"
     }
 }

@@ -15,6 +15,7 @@ import PasswordChange from './pages/PasswordChange';
 import PasswordResetEmail from './pages/PasswordResetEmail.jsx';
 import PasswordResetToken from './pages/PasswordResetToken.jsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import CompleteRegistration from './pages/CompleteRegistration.jsx';
 
 function App() {
   const cookies = new Cookies();
@@ -37,6 +38,7 @@ function App() {
           <Route path="/" element={<Home isAuthenticated={isAuthenticated} setDegreeAvg={setDegreeAvg} degreeAvg={degreeAvg}/>} />
           <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated}/>} />
           <Route path="/register" element={<Register/>} />
+          <Route path="/register/complete/:id" element={<CompleteRegistration setIsAuthenticated={setIsAuthenticated}/>} />
           <Route path="/verify/:id" element={<Verify/>} />
           <Route path="/profile" element={<Profile setDegreeAvg={setDegreeAvg}  isAuthenticated={isAuthenticated}/>} />
           <Route path="/password/change" element={<PasswordChange isAuthenticated={isAuthenticated}/>} />
